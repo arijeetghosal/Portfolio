@@ -742,6 +742,7 @@ class Chatbot {
         this.messagesContainer = document.getElementById('chatbotMessages');
         this.input = document.getElementById('chatbotInput');
         this.sendBtn = document.getElementById('chatbotSend');
+        this.micBtn = document.getElementById('chatbotMic');
         this.suggestions = document.querySelectorAll('.suggest-btn');
 
         if (!this.container || !this.toggle) return;
@@ -823,6 +824,54 @@ class Chatbot {
             setTimeout(() => {
                 this.appendMessage(`Welcome back! 🎉 This is your visit #${this.memory.sessions}. I remember our ${this.memory.totalMessages} past messages. What can I help with today?`, 'bot');
             }, 1000);
+        }
+
+        // Voice Recognition / Speech-to-Text Setup
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (SpeechRecognition) {
+            this.recognition = new SpeechRecognition();
+            this.recognition.continuous = false;
+            this.recognition.lang = 'en-US';
+            this.recognition.interimResults = false;
+            this.recognition.maxAlternatives = 1;
+
+            this.recognition.onstart = () => {
+                this.micBtn.classList.add('recording');
+                this.micBtn.innerHTML = '🛑';
+                this.micBtn.style.color = '#ff5f56';
+                this.input.placeholder = 'Listening... Speak now!';
+            };
+
+            this.recognition.onend = () => {
+                this.micBtn.classList.remove('recording');
+                this.micBtn.innerHTML = '🎙️';
+                this.micBtn.style.color = 'var(--text-secondary)';
+                this.input.placeholder = 'Ask Steve anything...';
+            };
+
+            this.recognition.onresult = (event) => {
+                const speechToText = event.results[0][0].transcript;
+                this.input.value = speechToText;
+                this.sendMessage();
+            };
+
+            this.recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                this.micBtn.classList.remove('recording');
+                this.micBtn.innerHTML = '🎙️';
+                this.micBtn.style.color = 'var(--text-secondary)';
+                this.input.placeholder = 'Ask Steve anything...';
+            };
+
+            this.micBtn.addEventListener('click', () => {
+                if (this.micBtn.classList.contains('recording')) {
+                    this.recognition.stop();
+                } else {
+                    this.recognition.start();
+                }
+            });
+        } else {
+            if (this.micBtn) this.micBtn.style.display = 'none';
         }
 
         // Toggle window
