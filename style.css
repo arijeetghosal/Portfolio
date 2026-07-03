@@ -3167,3 +3167,61 @@ select.form-control option {
 .tool-chip:hover::before {
     opacity: 1;
 }
+
+/* ── Chatbot Feedback & Speech Controls ─────────────────────────── */
+.chat-feedback {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 6px;
+}
+
+.fb-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    padding: 2px 4px;
+    border-radius: 4px;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.fb-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: scale(1.15);
+}
+
+.chat-speech-btn {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.75rem;
+    opacity: 0.4;
+    transition: opacity 0.2s, transform 0.2s;
+    color: var(--text-primary);
+}
+
+.chat-message:hover .chat-speech-btn {
+    opacity: 0.9;
+}
+
+.chat-speech-btn.speaking {
+    opacity: 1;
+    color: var(--primary);
+    animation: speakPulse 1.2s infinite ease-in-out;
+}
+
+.chat-message.bot {
+    position: relative;
+    padding-right: 32px; /* make room for speaker button */
+}
+
+@keyframes speakPulse {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px var(--primary)); }
+    50% { transform: scale(1.2); filter: drop-shadow(0 0 6px var(--primary-glow)); }
+}
+

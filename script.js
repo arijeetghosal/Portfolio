@@ -969,6 +969,19 @@ class Chatbot {
         content.innerHTML = text;
         wrapper.appendChild(content);
 
+        // Add speech button for bot messages
+        if (sender === 'bot') {
+            const speechBtn = document.createElement('button');
+            speechBtn.className = 'chat-speech-btn';
+            speechBtn.innerHTML = '🔊';
+            speechBtn.title = 'Speak Response';
+            wrapper.appendChild(speechBtn);
+
+            speechBtn.addEventListener('click', () => {
+                this.speak(content.innerText || content.textContent, speechBtn);
+            });
+        }
+
         // Add feedback buttons for bot messages
         if (sender === 'bot' && showFeedback) {
             const fb = document.createElement('div');
@@ -1000,6 +1013,62 @@ class Chatbot {
         this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
     }
 
+    speak(text, btn) {
+        if (!('speechSynthesis' in window)) {
+            return;
+        }
+
+        // If currently speaking, stop it
+        if (window.speechSynthesis.speaking) {
+            window.speechSynthesis.cancel();
+            if (btn.classList.contains('speaking')) {
+                btn.classList.remove('speaking');
+                btn.innerHTML = '🔊';
+                return;
+            }
+        }
+
+        // Reset all speech buttons to 🔊
+        document.querySelectorAll('.chat-speech-btn').forEach(b => {
+            b.classList.remove('speaking');
+            b.innerHTML = '🔊';
+        });
+
+        // Strip HTML tags for clean reading
+        const cleanText = text.replace(/<[^>]*>/g, '').trim();
+
+        const utterance = new SpeechSynthesisUtterance(cleanText);
+        
+        // Find English voice
+        const voices = window.speechSynthesis.getVoices();
+        const enVoices = voices.filter(v => v.lang.startsWith('en'));
+        
+        if (enVoices.length > 0) {
+            utterance.voice = enVoices.find(v => v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('David')) || enVoices[0];
+        }
+
+        // Steve voice parameters (slightly fast, energetic)
+        utterance.rate = 1.15;
+        utterance.pitch = 0.95;
+
+        utterance.onstart = () => {
+            btn.classList.add('speaking');
+            btn.innerHTML = '🛑';
+        };
+
+        utterance.onend = () => {
+            btn.classList.remove('speaking');
+            btn.innerHTML = '🔊';
+        };
+
+        utterance.onerror = () => {
+            btn.classList.remove('speaking');
+            btn.innerHTML = '🔊';
+        };
+
+        window.speechSynthesis.speak(utterance);
+    }
+
     logFeedback(responseText, rating) {
         const topicGuess = this.conversationHistory.length > 1 ? this.conversationHistory[this.conversationHistory.length - 2].content : 'unknown';
         this.feedbackLog.push({
@@ -1011,6 +1080,7 @@ class Chatbot {
         if (this.feedbackLog.length > 100) this.feedbackLog = this.feedbackLog.slice(-100);
         this.saveFeedback();
     }
+
 
     appendTypingIndicator() {
         const typingId = 'typing-' + Date.now();
