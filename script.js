@@ -887,7 +887,7 @@ class Chatbot {
 
         // About Arijeet
         if (clean.includes('who') && (clean.includes('arijeet') || clean.includes('ghosal') || clean.includes('creator') || clean.includes('you'))) {
-            return "Arijeet Ghosal is a master level Data Engineer & AI Enthusiast. He spent 3+ years building pipelines at Microsoft and Bosch, optimized ticket routing by 50% using NLP, and wrote a master's thesis on ML surrogate models that score an R² > 0.97. Rumor has it he eats neural networks for breakfast.";
+            return "Arijeet Ghosal is a master level Data Engineer & AI Enthusiast. He spent 4+ years building pipelines at Microsoft and Bosch, optimized ticket routing by 50% using NLP, and wrote a master's thesis on ML surrogate models that score an R² > 0.97. Rumor has it he eats neural networks for breakfast.";
         }
 
         // Uber Dashboard
@@ -942,7 +942,7 @@ class Chatbot {
 
         // Hire / Price
         if (clean.includes('hire') || clean.includes('order') || clean.includes('price') || clean.includes('cost') || clean.includes('charge') || clean.includes('work') || clean.includes('buy') || clean.includes('pay') || clean.includes('sell')) {
-            return "Looking to hire Arijeet? You can request projects directly on the **Services** page! We offer Data Analyst reports ($49), Visualisation dashboards ($79), Data Engineering staging pipelines ($149), and custom AI builds ($249). Complete with an interactive price estimator! Head over to services.html to configure your order.";
+            return "Looking to hire Arijeet? You can request projects directly on the **Services** page! We offer Data Analyst reports ($19), Visualisation dashboards ($29), Data Engineering staging pipelines ($49), and custom AI builds ($99). Complete with an interactive price estimator! Head over to services.html to configure your order.";
         }
 
         // Help / Solve

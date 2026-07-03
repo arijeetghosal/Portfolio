@@ -274,6 +274,7 @@ class SharedEffects {
                 p.y += p.vy;
                 p.vy += 0.06;
                 p.life -= p.decay;
+                if (p.life <= 0) continue;
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.radius * p.life, 0, Math.PI * 2);
                 ctx.fillStyle = p.color;
