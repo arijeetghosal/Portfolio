@@ -850,7 +850,7 @@ class Chatbot {
 
         // About Arijeet
         if (clean.includes('who') && (clean.includes('arijeet') || clean.includes('ghosal') || clean.includes('creator') || clean.includes('you'))) {
-            return "Arijeet Ghosal is a master level AI Engineer & Data Scientist. He spent 3+ years building pipelines at Microsoft and Bosch, optimized ticket routing by 50% using NLP, and wrote a master's thesis on ML surrogate models that score an R² > 0.97. Rumor has it he eats neural networks for breakfast.";
+            return "Arijeet Ghosal is a master level Data Engineer & AI Enthusiast. He spent 3+ years building pipelines at Microsoft and Bosch, optimized ticket routing by 50% using NLP, and wrote a master's thesis on ML surrogate models that score an R² > 0.97. Rumor has it he eats neural networks for breakfast.";
         }
 
         // Uber Dashboard
@@ -928,7 +928,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const typewriterEl = document.getElementById('typewriter');
     if (typewriterEl) {
         new Typewriter(typewriterEl, [
-            'Data Scientist & AI Engineer',
+            'Data Engineer & AI Enthusiast',
             'Computer Vision Researcher',
             'NLP & Generative AI Developer',
             'MSc AI @ BTU Cottbus-Senftenberg',
