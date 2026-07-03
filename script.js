@@ -875,7 +875,7 @@ class Chatbot {
 
         // Skills / Stack
         if (clean.includes('skill') || clean.includes('stack') || clean.includes('tech') || clean.includes('python')) {
-            return "His primary weapon is **Python**, supported by TensorFlow, Scikit-Learn, and XGBoost. On the cloud side, he is a Microsoft Certified Azure Data Scientist & Data Engineer. Scroll down to check out the **Interactive Radar Chart** to see his exact proficiencies!";
+            return "His primary weapon is **Python**, supported by TensorFlow, Scikit-Learn, and XGBoost. On the cloud side, he is a Microsoft Certified Azure Data Scientist & AI Engineer. Scroll down to check out the **Interactive Radar Chart** to see his exact proficiencies!";
         }
 
         // Jokes
