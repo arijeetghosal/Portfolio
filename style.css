@@ -1611,14 +1611,14 @@ a.contact-card:hover .contact-arrow {
     to { transform: rotate(360deg); }
 }
 
-/* Scroll-triggered fade-in */
-.section {
+/* Scroll-triggered fade-in — only on the main index page */
+body:not(.services-page-body):not(.projects-page-body) .section {
     opacity: 0;
     transform: translateY(40px);
     transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
 }
 
-.section.visible {
+body:not(.services-page-body):not(.projects-page-body) .section.visible {
     opacity: 1;
     transform: translateY(0);
 }
