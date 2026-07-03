@@ -18,11 +18,11 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const { message } = req.body;
+    const { message, history, context, webSearch } = req.body;
     const openaiApiKey = process.env.OPENAI_API_KEY;
     const geminiApiKey = process.env.GEMINI_API_KEY;
 
-    const systemPrompt = `You are Steve, Jarvis's underpaid, slightly caffeinated cousin. You act as Arijeet Ghosal's portfolio AI assistant.
+    const baseSystemPrompt = `You are Steve, Jarvis's underpaid, slightly caffeinated cousin. You act as Arijeet Ghosal's portfolio AI assistant.
 Personal details:
 - Arijeet is a Data Engineer and AI Enthusiast with 4+ years of experience at Bosch E-Bike Systems and Microsoft.
 - He is pursuing MSc in Artificial Intelligence at BTU Cottbus-Senftenberg.
@@ -43,9 +43,23 @@ Instructions:
 - If asked about AI news, summarize current updates or make up witty, hypothetical AI scenarios.
 - Be extremely witty, sarcastic, and fun to talk to. Keep answers concise.`;
 
+    const systemPrompt = context ? `${baseSystemPrompt}\n\nClient Session Context: ${context}` : baseSystemPrompt;
+
     // 1. Try OpenAI
     if (openaiApiKey) {
         try {
+            const messages = [{ role: 'system', content: systemPrompt }];
+            if (history && Array.isArray(history)) {
+                history.forEach(h => {
+                    messages.push({
+                        role: h.role === 'assistant' ? 'assistant' : 'user',
+                        content: h.content
+                    });
+                });
+            } else {
+                messages.push({ role: 'user', content: message });
+            }
+
             const response = await fetch('https://api.openai.com/v1/chat/completions', {
                 method: 'POST',
                 headers: {
@@ -55,10 +69,7 @@ Instructions:
                 body: JSON.stringify({
                     model: 'gpt-3.5-turbo',
                     temperature: 0.7,
-                    messages: [
-                        { role: 'system', content: systemPrompt },
-                        { role: 'user', content: message }
-                    ]
+                    messages: messages
                 })
             });
 
@@ -75,24 +86,43 @@ Instructions:
     // 2. Fallback to Gemini
     if (geminiApiKey) {
         try {
+            const contents = [];
+            if (history && Array.isArray(history)) {
+                history.forEach(h => {
+                    contents.push({
+                        role: h.role === 'assistant' ? 'model' : 'user',
+                        parts: [{ text: h.content }]
+                    });
+                });
+            } else {
+                contents.push({
+                    role: 'user',
+                    parts: [{ text: message }]
+                });
+            }
+
+            const payload = {
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                },
+                contents: contents,
+                generationConfig: {
+                    temperature: 0.7,
+                    maxOutputTokens: 800
+                }
+            };
+
+            // Enable Google Search Grounding if web search is triggered
+            if (webSearch) {
+                payload.tools = [{ googleSearch: {} }];
+            }
+
             const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    contents: [
-                        {
-                            parts: [
-                                { text: `${systemPrompt}\n\nUser Query: ${message}` }
-                            ]
-                        }
-                    ],
-                    generationConfig: {
-                        temperature: 0.7,
-                        maxOutputTokens: 500
-                    }
-                })
+                body: JSON.stringify(payload)
             });
 
             const data = await response.json();

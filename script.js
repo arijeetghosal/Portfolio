@@ -734,7 +734,7 @@ function initKeyboardNav() {
     });
 }
 
-// ── Crazy AI Chatbot ───────────────────────────────────────────
+// ── Crazy AI Chatbot (Learning + Memory + Web Search) ──────────
 class Chatbot {
     constructor() {
         this.container = document.getElementById('chatbot');
@@ -746,10 +746,85 @@ class Chatbot {
 
         if (!this.container || !this.toggle) return;
 
+        // ── Memory Systems ──
+        this.conversationHistory = []; // current session messages (sent to API)
+        this.MAX_HISTORY = 20;         // max turns to send to API
+        this.STORAGE_KEY = 'steve_memory';
+        this.FAQ_KEY = 'steve_faq';
+        this.FEEDBACK_KEY = 'steve_feedback';
+
+        // Load persisted memory
+        this.memory = this.loadMemory();
+        this.faqCache = this.loadFAQ();
+        this.feedbackLog = this.loadFeedback();
+
         this.init();
     }
 
+    // ── LocalStorage helpers ──
+    loadMemory() {
+        try { return JSON.parse(localStorage.getItem(this.STORAGE_KEY)) || { sessions: 0, totalMessages: 0, topics: {}, lastVisit: null }; }
+        catch { return { sessions: 0, totalMessages: 0, topics: {}, lastVisit: null }; }
+    }
+    saveMemory() { localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.memory)); }
+
+    loadFAQ() {
+        try { return JSON.parse(localStorage.getItem(this.FAQ_KEY)) || {}; }
+        catch { return {}; }
+    }
+    saveFAQ() { localStorage.setItem(this.FAQ_KEY, JSON.stringify(this.faqCache)); }
+
+    loadFeedback() {
+        try { return JSON.parse(localStorage.getItem(this.FEEDBACK_KEY)) || []; }
+        catch { return []; }
+    }
+    saveFeedback() { localStorage.setItem(this.FEEDBACK_KEY, JSON.stringify(this.feedbackLog)); }
+
+    // ── Track topic frequency ──
+    trackTopic(query) {
+        const keywords = ['project', 'skill', 'hire', 'price', 'news', 'joke', 'uber', 'help', 'certification', 'experience', 'contact', 'service', 'data', 'ai', 'python', 'azure', 'dashboard'];
+        const clean = query.toLowerCase();
+        keywords.forEach(kw => {
+            if (clean.includes(kw)) {
+                this.memory.topics[kw] = (this.memory.topics[kw] || 0) + 1;
+            }
+        });
+        this.memory.totalMessages++;
+        this.saveMemory();
+    }
+
+    // ── Build context string from memory for the API ──
+    buildContextPrompt() {
+        const m = this.memory;
+        let ctx = '';
+        if (m.sessions > 0) {
+            ctx += `\nReturning user — session #${m.sessions + 1}, ${m.totalMessages} total messages exchanged.`;
+        }
+        const topTopics = Object.entries(m.topics).sort((a, b) => b[1] - a[1]).slice(0, 5);
+        if (topTopics.length > 0) {
+            ctx += `\nUser's top interests: ${topTopics.map(([k, v]) => `${k}(${v})`).join(', ')}.`;
+        }
+        // Recent positive feedback patterns
+        const goodPatterns = this.feedbackLog.filter(f => f.rating === 'up').slice(-5);
+        if (goodPatterns.length > 0) {
+            ctx += `\nUser liked responses about: ${goodPatterns.map(f => f.topic).join(', ')}.`;
+        }
+        return ctx;
+    }
+
     init() {
+        // Increment session count
+        this.memory.sessions++;
+        this.memory.lastVisit = new Date().toISOString();
+        this.saveMemory();
+
+        // Greet returning users differently
+        if (this.memory.sessions > 1) {
+            setTimeout(() => {
+                this.appendMessage(`Welcome back! 🎉 This is your visit #${this.memory.sessions}. I remember our ${this.memory.totalMessages} past messages. What can I help with today?`, 'bot');
+            }, 1000);
+        }
+
         // Toggle window
         this.toggle.addEventListener('click', () => {
             this.container.classList.toggle('open');
@@ -779,7 +854,6 @@ class Chatbot {
         document.addEventListener('keydown', (e) => {
             const isChatOpen = this.container.classList.contains('open');
 
-            // 1. Toggle Chat window on 'i' / 'I' when no input/textarea is active
             if ((e.key === 'i' || e.key === 'I') && 
                 document.activeElement !== this.input && 
                 document.activeElement.tagName !== 'INPUT' && 
@@ -791,13 +865,11 @@ class Chatbot {
                 }
             }
 
-            // 2. Escape closes the chatbot
             if (e.key === 'Escape' && isChatOpen) {
                 this.container.classList.remove('open');
                 this.input.blur();
             }
 
-            // 3. Scroll messages container on 'j' / 'k' when chat is open but input is NOT focused
             if (isChatOpen && document.activeElement !== this.input) {
                 if (e.key === 'j' || e.key === 'J') {
                     e.preventDefault();
@@ -814,46 +886,130 @@ class Chatbot {
         const text = this.input.value.trim();
         if (!text) return;
 
+        // Track topic
+        this.trackTopic(text);
+
         // Append user message
         this.appendMessage(text, 'user');
         this.input.value = '';
+
+        // Add to conversation history
+        this.conversationHistory.push({ role: 'user', content: text });
+        if (this.conversationHistory.length > this.MAX_HISTORY) {
+            this.conversationHistory = this.conversationHistory.slice(-this.MAX_HISTORY);
+        }
+
+        // Check FAQ cache first (instant response for repeated questions)
+        const cacheKey = text.toLowerCase().trim().replace(/[^a-z0-9 ]/g, '').substring(0, 80);
+        if (this.faqCache[cacheKey]) {
+            this.appendMessage(this.faqCache[cacheKey], 'bot', true);
+            this.conversationHistory.push({ role: 'assistant', content: this.faqCache[cacheKey] });
+            return;
+        }
 
         // Typing indicator
         const typingId = this.appendTypingIndicator();
 
         try {
+            // Determine if web search is needed
+            const needsWeb = this.needsWebSearch(text);
+
             const response = await fetch('/api/chat', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ message: text })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    message: text,
+                    history: this.conversationHistory.slice(-10),
+                    context: this.buildContextPrompt(),
+                    webSearch: needsWeb
+                })
             });
 
-            if (!response.ok) {
-                throw new Error('API request failed');
-            }
+            if (!response.ok) throw new Error('API request failed');
 
             const data = await response.json();
             this.removeTypingIndicator(typingId);
-            this.appendMessage(data.reply, 'bot');
+            this.appendMessage(data.reply, 'bot', true);
+
+            // Cache this Q&A for future instant responses
+            this.faqCache[cacheKey] = data.reply;
+            this.saveFAQ();
+
+            // Add to conversation history
+            this.conversationHistory.push({ role: 'assistant', content: data.reply });
+
         } catch (error) {
-            console.warn('ChatGPT endpoint unavailable or API key not set. Falling back to offline AI brain.', error);
-            // Fallback to local response
+            console.warn('API unavailable, using offline brain.', error);
             setTimeout(() => {
                 this.removeTypingIndicator(typingId);
                 const reply = this.generateCrazyAnswer(text);
-                this.appendMessage(reply, 'bot');
+                this.appendMessage(reply, 'bot', true);
+                this.conversationHistory.push({ role: 'assistant', content: reply });
+
+                // Cache offline answers too
+                this.faqCache[cacheKey] = reply;
+                this.saveFAQ();
             }, 500 + Math.random() * 500);
         }
     }
 
-    appendMessage(text, sender) {
-        const msg = document.createElement('div');
-        msg.className = `chat-message ${sender}`;
-        msg.innerHTML = text;
-        this.messagesContainer.appendChild(msg);
+    // ── Detect if query needs web search ──
+    needsWebSearch(query) {
+        const webTriggers = ['news', 'latest', 'today', 'current', 'happening', 'trending', '2024', '2025', '2026', 'search', 'find', 'look up', 'what is', 'who is', 'weather', 'stock', 'bitcoin', 'crypto', 'election'];
+        const clean = query.toLowerCase();
+        return webTriggers.some(t => clean.includes(t));
+    }
+
+    appendMessage(text, sender, showFeedback = false) {
+        const wrapper = document.createElement('div');
+        wrapper.className = `chat-message ${sender}`;
+
+        const content = document.createElement('div');
+        content.className = 'chat-content';
+        content.innerHTML = text;
+        wrapper.appendChild(content);
+
+        // Add feedback buttons for bot messages
+        if (sender === 'bot' && showFeedback) {
+            const fb = document.createElement('div');
+            fb.className = 'chat-feedback';
+            fb.innerHTML = `
+                <button class="fb-btn fb-up" title="Good answer">👍</button>
+                <button class="fb-btn fb-down" title="Bad answer">👎</button>
+            `;
+            wrapper.appendChild(fb);
+
+            const upBtn = fb.querySelector('.fb-up');
+            const downBtn = fb.querySelector('.fb-down');
+
+            upBtn.addEventListener('click', () => {
+                this.logFeedback(text, 'up');
+                fb.innerHTML = '<span style="font-size:0.7rem;color:#27c93f;">✓ Thanks for the feedback!</span>';
+            });
+            downBtn.addEventListener('click', () => {
+                this.logFeedback(text, 'down');
+                fb.innerHTML = '<span style="font-size:0.7rem;color:#ff5f56;">✗ Noted, I\'ll try to improve!</span>';
+                // Remove bad answers from FAQ cache
+                const keys = Object.keys(this.faqCache);
+                keys.forEach(k => { if (this.faqCache[k] === text) delete this.faqCache[k]; });
+                this.saveFAQ();
+            });
+        }
+
+        this.messagesContainer.appendChild(wrapper);
         this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+    }
+
+    logFeedback(responseText, rating) {
+        const topicGuess = this.conversationHistory.length > 1 ? this.conversationHistory[this.conversationHistory.length - 2].content : 'unknown';
+        this.feedbackLog.push({
+            topic: topicGuess.substring(0, 50),
+            rating,
+            timestamp: new Date().toISOString()
+        });
+        // Keep only last 100 feedback entries
+        if (this.feedbackLog.length > 100) this.feedbackLog = this.feedbackLog.slice(-100);
+        this.saveFeedback();
     }
 
     appendTypingIndicator() {
@@ -907,12 +1063,12 @@ class Chatbot {
 
         // Projects
         if (clean.includes('project') || clean.includes('github') || clean.includes('code')) {
-            return "Arijeet has 18 public repositories. The highlights include a Multiclass Image Classification model using binary tree routing, a containerized Kubernetes-deployed Voice Bot, and advanced Power BI analytics dashboard pipelines. Click any 'View on GitHub' button to inspect his source code!";
+            return "Arijeet has 20+ public repositories. The highlights include a Multiclass Image Classification model using binary tree routing, a containerized Kubernetes-deployed Voice Bot, and advanced Power BI analytics dashboard pipelines. Click any 'View on GitHub' button to inspect his source code!";
         }
 
         // Skills / Stack
         if (clean.includes('skill') || clean.includes('stack') || clean.includes('tech') || clean.includes('python')) {
-            return "His primary weapon is **Python**, supported by TensorFlow, Scikit-Learn, and XGBoost. On the cloud side, he is a Microsoft Certified Azure Data Scientist & AI Engineer. Scroll down to check out the **Interactive Radar Chart** to see his exact proficiencies!";
+            return "His primary weapon is <strong>Python</strong>, supported by TensorFlow, Scikit-Learn, and XGBoost. On the cloud side, he is a Microsoft Certified Azure Data Scientist & AI Engineer. Scroll down to check out the <strong>Interactive Radar Chart</strong> to see his exact proficiencies!";
         }
 
         // Jokes
@@ -942,7 +1098,7 @@ class Chatbot {
 
         // Hire / Price
         if (clean.includes('hire') || clean.includes('order') || clean.includes('price') || clean.includes('cost') || clean.includes('charge') || clean.includes('work') || clean.includes('buy') || clean.includes('pay') || clean.includes('sell')) {
-            return "Looking to hire Arijeet? You can request projects directly on the **Services** page! We offer Data Analyst reports ($19), Visualisation dashboards ($29), Data Engineering staging pipelines ($49), and custom AI builds ($99). Complete with an interactive price estimator! Head over to services.html to configure your order.";
+            return "Looking to hire Arijeet? You can request projects directly on the <strong>Services</strong> page! We offer Data Analyst reports ($19), Visualisation dashboards ($29), Data Engineering staging pipelines ($49), and custom AI builds ($99). Complete with an interactive price estimator! Head over to services.html to configure your order.";
         }
 
         // Help / Solve
@@ -950,12 +1106,17 @@ class Chatbot {
             return "Tell me about your project! What database are you using? Are you trying to clean data, model features, build dashboards, or integrate a chatbot? I can suggest architectures and recommend the best Service Tier for Arijeet to build it for you.";
         }
 
-        // fallback responses
+        // Memory/learning aware fallback
+        const topTopic = Object.entries(this.memory.topics).sort((a, b) => b[1] - a[1])[0];
+        if (topTopic && Math.random() > 0.5) {
+            return `I notice you're interested in "${topTopic[0]}" — you've asked about it ${topTopic[1]} times! Would you like to dive deeper into Arijeet's ${topTopic[0]}-related work, or explore something new? Try asking about his <strong>certifications</strong>, <strong>services</strong>, or ask me to <strong>search the web</strong> for something!`;
+        }
+
         const fallbacks = [
             "Processing your request... 💻 My neural pathways indicate that Arijeet is the ideal candidate for your AI engineering project. What else would you like to know?",
-            "Your query has been converted to vector embeddings. I found a 99.8% match for 'Arijeet is awesome'. Try asking about his **Latest AI news** or **how to hire him**!",
-            "I could answer that, but my training parameters forbid me from disclosing Classified AI Operations. Let's stick to talking about Arijeet's **Data Engineering projects**!",
-            "Beep boop! 🤖 That query is out-of-distribution for my current weights. Ask me about Arijeet's **skills**, **projects**, or ask me for a **joke**!"
+            "Your query has been converted to vector embeddings. I found a 99.8% match for 'Arijeet is awesome'. Try asking about his <strong>Latest AI news</strong> or <strong>how to hire him</strong>!",
+            "I could answer that, but my training parameters forbid me from disclosing Classified AI Operations. Try asking me to <strong>search the web</strong> for real-time info!",
+            "Beep boop! 🤖 That query is out-of-distribution for my current weights. Ask me about Arijeet's <strong>skills</strong>, <strong>projects</strong>, or ask me for a <strong>joke</strong>!"
         ];
         return fallbacks[Math.floor(Math.random() * fallbacks.length)];
     }
