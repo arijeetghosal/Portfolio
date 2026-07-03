@@ -434,8 +434,27 @@ class CatalogController {
     }
 }
 
+// ── Scroll Observer (makes sections visible) ────────────────────
+function initScrollObserver() {
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+
+    sections.forEach(section => observer.observe(section));
+
+    // Make the hub-hero visible immediately (it's not a .section)
+    const hero = document.querySelector('.hub-hero');
+    if (hero) hero.classList.add('visible');
+}
+
 // ── Init execution ──────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
     new SharedEffects();
     new CatalogController();
+    initScrollObserver();
 });
