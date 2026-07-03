@@ -719,11 +719,14 @@ function initKeyboardNav() {
     let currentIdx = 0;
 
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowDown' || e.key === 'j') {
+        // Ignore if user is typing in any text input/textarea
+        if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
+
+        if (e.key === 'ArrowDown' || e.key === 'j' || e.key === 'J') {
             e.preventDefault();
             currentIdx = Math.min(currentIdx + 1, sections.length - 1);
             document.getElementById(sections[currentIdx])?.scrollIntoView({ behavior: 'smooth' });
-        } else if (e.key === 'ArrowUp' || e.key === 'k') {
+        } else if (e.key === 'ArrowUp' || e.key === 'k' || e.key === 'K') {
             e.preventDefault();
             currentIdx = Math.max(currentIdx - 1, 0);
             document.getElementById(sections[currentIdx])?.scrollIntoView({ behavior: 'smooth' });
@@ -770,6 +773,40 @@ class Chatbot {
                 this.input.value = query;
                 this.sendMessage();
             });
+        });
+
+        // Global Chatbot Keyboard Shortcuts
+        document.addEventListener('keydown', (e) => {
+            const isChatOpen = this.container.classList.contains('open');
+
+            // 1. Toggle Chat window on 'i' / 'I' when no input/textarea is active
+            if ((e.key === 'i' || e.key === 'I') && 
+                document.activeElement !== this.input && 
+                document.activeElement.tagName !== 'INPUT' && 
+                document.activeElement.tagName !== 'TEXTAREA') {
+                e.preventDefault();
+                this.container.classList.toggle('open');
+                if (this.container.classList.contains('open')) {
+                    setTimeout(() => this.input.focus(), 300);
+                }
+            }
+
+            // 2. Escape closes the chatbot
+            if (e.key === 'Escape' && isChatOpen) {
+                this.container.classList.remove('open');
+                this.input.blur();
+            }
+
+            // 3. Scroll messages container on 'j' / 'k' when chat is open but input is NOT focused
+            if (isChatOpen && document.activeElement !== this.input) {
+                if (e.key === 'j' || e.key === 'J') {
+                    e.preventDefault();
+                    this.messagesContainer.scrollBy({ top: 60, behavior: 'smooth' });
+                } else if (e.key === 'k' || e.key === 'K') {
+                    e.preventDefault();
+                    this.messagesContainer.scrollBy({ top: -60, behavior: 'smooth' });
+                }
+            }
         });
     }
 
