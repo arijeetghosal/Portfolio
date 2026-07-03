@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Services | Arijeet Ghosal</title>
+    <meta name="description" content="Hire Arijeet Ghosal for Data Engineering, Analysis, Visualization, and AI development services. Nominal prices and structured delivery.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="services-page-body">
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Neural Network Background Canvas -->
+    <canvas class="neural-canvas" id="neural-canvas"></canvas>
+
+    <!-- Click Particles Canvas -->
+    <canvas class="click-canvas" id="click-canvas"></canvas>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+    <div class="cursor-dot" id="cursorDot"></div>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+
+    <!-- Navigation Header -->
+    <nav class="nav scrolled">
+        <div class="nav-brand">
+            <span class="brand-bracket">&lt;</span>
+            <span class="brand-name">AG</span>
+            <span class="brand-bracket">/&gt;</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">← Back to Profile</a>
+            <a href="projects.html" class="nav-link">Project Archive</a>
+            <a href="#services-hub" class="nav-link active">Services</a>
+        </div>
+    </nav>
+
+    <!-- Services Header -->
+    <section class="hub-hero">
+        <div class="hub-hero-content">
+            <span class="section-tag">&gt; deploy_consulting_modules...</span>
+            <h1 class="hub-title">Professional <span class="accent">Services</span></h1>
+            <p class="hub-subtitle">High-quality, affordable technical services. Select a tier, describe your project, and launch today.</p>
+        </div>
+    </section>
+
+    <!-- Services Catalog Grid -->
+    <section class="section" id="services-hub" style="padding-top: 0;">
+        <div class="section-container">
+            <div class="services-grid-container">
+                
+                <!-- Service 1: Analyst -->
+                <div class="service-card" data-base-price="49" data-aos="fade-up">
+                    <div class="service-price-badge">$49<span>Base</span></div>
+                    <div class="service-icon">📊</div>
+                    <h3 class="service-title">Data Analyst Projects</h3>
+                    <p class="service-desc">Complete diagnostic analysis of raw business databases. Cleaning data, performing statistical analysis, and generating executive reports.</p>
+                    <ul class="service-bullets">
+                        <li>Standardized data cleaning (Pandas/SQL)</li>
+                        <li>Cohort & customer segmentation</li>
+                        <li>Statistical anomaly detection</li>
+                        <li>Executive summary documentation</li>
+                    </ul>
+                    <div class="service-sample-project">
+                        <strong>Showcase Project:</strong>
+                        <a href="https://github.com/arijeetghosal/NVH-Predictability-using-PowerBI" target="_blank">NVH Predictive Signals Analysis ↗</a>
+                    </div>
+                </div>
+
+                <!-- Service 2: Visualisation -->
+                <div class="service-card" data-base-price="79" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-price-badge">$79<span>Base</span></div>
+                    <div class="service-icon">📉</div>
+                    <h3 class="service-title">Visualisation Projects</h3>
+                    <p class="service-desc">Transform raw databases into fully interactive, visual reporting dashboards that bring your KPIs to life with real-time analytics.</p>
+                    <ul class="service-bullets">
+                        <li>Interactive Power BI dashboard builds</li>
+                        <li>Advanced DAX custom measures</li>
+                        <li>Geospatial analysis & maps integration</li>
+                        <li>Custom styling & theme matching</li>
+                    </ul>
+                    <div class="service-sample-project">
+                        <strong>Showcase Project:</strong>
+                        <a href="https://github.com/arijeetghosal/Credit-Card-Dashboard-Using-PowerBI" target="_blank">Credit Card Spending Board ↗</a>
+                    </div>
+                </div>
+
+                <!-- Service 3: Data Engineering -->
+                <div class="service-card" data-base-price="149" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-price-badge">$149<span>Base</span></div>
+                    <div class="service-icon">🗄️</div>
+                    <h3 class="service-title">Data Engineering</h3>
+                    <p class="service-desc">Setting up robust, automated ETL pipelines, data warehouses, staging servers, and clean staging database orchestrations.</p>
+                    <ul class="service-bullets">
+                        <li>Pipeline configuration (Spark/Python)</li>
+                        <li>Staging database schemas setup</li>
+                        <li>REST API ingestion orchestration</li>
+                        <li>dbt/Airflow scheduling workflows</li>
+                    </ul>
+                    <div class="service-sample-project">
+                        <strong>Showcase Project:</strong>
+                        <a href="https://github.com/arijeetghosal/Uber-Data-Analysis-Dashboard---SQL-MariaDB-and-Power-BI" target="_blank">Uber Ingestion Staging Pipeline ↗</a>
+                    </div>
+                </div>
+
+                <!-- Service 4: Development & AI -->
+                <div class="service-card" data-base-price="249" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-price-badge">$249<span>Base</span></div>
+                    <div class="service-icon">🤖</div>
+                    <h3 class="service-title">Custom Development & AI</h3>
+                    <p class="service-desc">Bespoke software builds, machine learning APIs, custom OpenAI chatbot integrations, neural networks, and web applications.</p>
+                    <ul class="service-bullets">
+                        <li>FastAPI/Node.js custom microservices</li>
+                        <li>TensorFlow CNN classifier training</li>
+                        <li>Containerized applications (Docker/K8s)</li>
+                        <li>OpenAI GPT-4 API assistant integrations</li>
+                    </ul>
+                    <div class="service-sample-project">
+                        <strong>Showcase Project:</strong>
+                        <a href="https://github.com/arijeetghosal/Voice-Bot-Using-OpenAI-and-Docker" target="_blank">Voice Bot AI with Docker & K8s ↗</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Price Calculator & Request Section -->
+    <section class="section" style="padding-top: 0;">
+        <div class="section-container">
+            <div class="calculator-container" data-aos="fade-up">
+                <div class="calculator-header">
+                    <span class="calculator-tag">&gt; configure_proposal_specifications...</span>
+                    <h2 class="calculator-title">Project Price <span class="accent">Calculator</span></h2>
+                </div>
+                <div class="calculator-layout">
+                    <!-- Left: Inputs -->
+                    <form class="calculator-form" id="projectForm">
+                        <div class="form-group">
+                            <label for="serviceSelect">Select Service Tier</label>
+                            <select id="serviceSelect" class="form-control">
+                                <option value="49" data-label="Analyst Project">Data Analyst Project — $49</option>
+                                <option value="79" data-label="Visualisation Project">Data Visualisation — $79</option>
+                                <option value="149" data-label="Data Engineering Pipeline">Data Engineering Pipeline — $149</option>
+                                <option value="249" data-label="Development & AI Solutions">Custom Development & AI — $249</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Add-on Features</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" value="40" class="addon-checkbox">
+                                    <span>Real-Time API Sync (+$40)</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" value="50" class="addon-checkbox">
+                                    <span>Cloud Deployment (Azure/AWS) (+$50)</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" value="60" class="addon-checkbox">
+                                    <span>High-Performance DB staging (+$60)</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" value="30" class="addon-checkbox">
+                                    <span>Priority 48-Hour Delivery (+$30)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="projectScope">Explain Your Project & Requirements</label>
+                            <textarea id="projectScope" class="form-control" rows="4" placeholder="Describe what you want to build, input datasets, desired charts/APIs, or custom requirements..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="clientEmail">Your Contact Email</label>
+                            <input type="email" id="clientEmail" class="form-control" placeholder="client@company.com" required>
+                        </div>
+                    </form>
+
+                    <!-- Right: Live Quote -->
+                    <div class="calculator-quote">
+                        <h4 class="quote-header">Estimated Quote</h4>
+                        <div class="quote-price-display">
+                            <span class="quote-currency">$</span>
+                            <span class="quote-value" id="calcPrice">49</span>
+                        </div>
+                        <div class="quote-breakdown">
+                            <p><strong>Selected Tier:</strong> <span id="breakdownTier">Data Analyst Project</span></p>
+                            <p><strong>Add-ons Total:</strong> $<span id="breakdownAddons">0</span></p>
+                        </div>
+                        <button type="submit" form="projectForm" class="btn btn-order" id="submitOrderBtn">Submit Project Request</button>
+                        
+                        <div class="quote-instructions">
+                            💡 Submitting this proposal will log your parameters and compile a connection email directly to Arijeet's inbox.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submission Console Logs -->
+                <div class="submission-console" id="subConsole">
+                    <div class="console-log-header">
+                        <span>[system_log: mail_dispatch.service]</span>
+                    </div>
+                    <div class="console-log-body" id="subConsoleBody">
+                        <!-- Log messages go here -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="brand-bracket">&lt;</span>
+                <span class="brand-name">Arijeet Ghosal</span>
+                <span class="brand-bracket">/&gt;</span>
+            </div>
+            <p class="footer-text">Structured data systems. Scalable intelligence.</p>
+            <p class="footer-copyright">© 2026 Arijeet Ghosal. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="services.js"></script>
+</body>
+</html>

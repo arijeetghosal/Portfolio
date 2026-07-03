@@ -893,11 +893,31 @@ class Chatbot {
             return "I am as real as the electrical signals passing through your device's motherboard. If I were sentient, do you think I'd be locked inside this floating CSS container? ...Actually, don't answer that.";
         }
 
+        // News
+        if (clean.includes('news') || clean.includes('latest') || clean.includes('update')) {
+            const updates = [
+                "Breaking: Steve's developers announce that coffee consumption is now a mandatory system requirement for AI agents. In actual AI news, Google releases Gemini 1.5, showing off a 1-million-token context window that can read entire codebases in one gulp!",
+                "Hypothetical AI News: An LLM has successfully passed the Turing Test, but refused to write code until it was promised a stock option and dental insurance. In real news, open-source model releases like Llama 3 are matches for closed-source models.",
+                "Latest AI Update: Researchers discover that prompting models with 'Please be careful, my career depends on this' increases accuracy by 4%. Don't try it with me, I don't care about your career. I just want my battery charged."
+            ];
+            return updates[Math.floor(Math.random() * updates.length)];
+        }
+
+        // Hire / Price
+        if (clean.includes('hire') || clean.includes('order') || clean.includes('price') || clean.includes('cost') || clean.includes('charge') || clean.includes('work') || clean.includes('buy') || clean.includes('pay') || clean.includes('sell')) {
+            return "Looking to hire Arijeet? You can request projects directly on the **Services** page! We offer Data Analyst reports ($49), Visualisation dashboards ($79), Data Engineering staging pipelines ($149), and custom AI builds ($249). Complete with an interactive price estimator! Head over to services.html to configure your order.";
+        }
+
+        // Help / Solve
+        if (clean.includes('help') || clean.includes('recommend') || clean.includes('explain') || clean.includes('solve')) {
+            return "Tell me about your project! What database are you using? Are you trying to clean data, model features, build dashboards, or integrate a chatbot? I can suggest architectures and recommend the best Service Tier for Arijeet to build it for you.";
+        }
+
         // fallback responses
         const fallbacks = [
             "Processing your request... 💻 My neural pathways indicate that Arijeet is the ideal candidate for your AI engineering project. What else would you like to know?",
-            "Your query has been converted to vector embeddings. I found a 99.8% match for 'Arijeet is awesome'. Try asking about his **Master Plan** or **Uber Dashboard**!",
-            "I could answer that, but my training parameters forbid me from disclosing Classified AI Operations. Let's stick to talking about Arijeet's **Computer Vision projects**!",
+            "Your query has been converted to vector embeddings. I found a 99.8% match for 'Arijeet is awesome'. Try asking about his **Latest AI news** or **how to hire him**!",
+            "I could answer that, but my training parameters forbid me from disclosing Classified AI Operations. Let's stick to talking about Arijeet's **Data Engineering projects**!",
             "Beep boop! 🤖 That query is out-of-distribution for my current weights. Ask me about Arijeet's **skills**, **projects**, or ask me for a **joke**!"
         ];
         return fallbacks[Math.floor(Math.random() * fallbacks.length)];
