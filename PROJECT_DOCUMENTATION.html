@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Portfolio Web Application — Project Documentation</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+    --primary: #0ea5e9;
+    --accent: #8b5cf6;
+    --bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --code-bg: #f8fafc;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    font-size: 11pt;
+}
+
+h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 28pt;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 0 0 8px;
+    padding-bottom: 16px;
+    border-bottom: 3px solid var(--primary);
+}
+
+h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18pt;
+    font-weight: 600;
+    color: var(--text);
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border);
+    page-break-after: avoid;
+}
+
+h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14pt;
+    font-weight: 600;
+    color: var(--accent);
+    margin: 28px 0 10px;
+    page-break-after: avoid;
+}
+
+h4 {
+    font-size: 12pt;
+    font-weight: 600;
+    margin: 20px 0 8px;
+    color: var(--text);
+}
+
+p {
+    margin: 6px 0;
+}
+
+strong {
+    font-weight: 600;
+    color: var(--text);
+}
+
+code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5pt;
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    padding: 1px 5px;
+    border-radius: 4px;
+    color: #be185d;
+}
+
+pre {
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 16px 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 12px 0 16px;
+    font-size: 9pt;
+    line-height: 1.5;
+    page-break-inside: avoid;
+}
+
+pre code {
+    background: none;
+    border: none;
+    color: inherit;
+    padding: 0;
+    font-size: inherit;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 20px;
+    font-size: 10pt;
+    page-break-inside: avoid;
+}
+
+th {
+    background: #f1f5f9;
+    font-weight: 600;
+    text-align: left;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    font-size: 9.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: var(--text-muted);
+}
+
+td {
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+}
+
+tr:nth-child(even) td {
+    background: #f8fafc;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 32px 0;
+}
+
+ul {
+    margin: 8px 0 12px 24px;
+}
+
+li {
+    margin: 4px 0;
+}
+
+@media print {
+    body {
+        padding: 30px;
+        font-size: 10pt;
+    }
+    h1 { font-size: 24pt; }
+    h2 { font-size: 16pt; page-break-before: auto; }
+    h3 { font-size: 12pt; }
+    pre { font-size: 8pt; }
+    table { font-size: 9pt; }
+}
+</style>
+</head>
+<body>
+<h1>Portfolio Web Application — Project Documentation</h1>
+
+<p><strong>Author:</strong> Arijeet Ghosal  </p>
+<p><strong>Version:</strong> 1.0.0  </p>
+<p><strong>Date:</strong> July 2026  </p>
+<p><strong>License:</strong> ISC  </p>
+
+<hr>
+
+<h2>Table of Contents</h2>
+
+<p>1. [Executive Summary](#1-executive-summary)</p>
+<p>2. [Project Overview](#2-project-overview)</p>
+<p>3. [Technology Stack](#3-technology-stack)</p>
+<p>4. [Directory Structure & Architecture](#4-directory-structure--architecture)</p>
+<p>5. [Build Pipeline](#5-build-pipeline)</p>
+<p>6. [Frontend Architecture](#6-frontend-architecture)</p>
+<ul>
+<li>6.1 [HTML Pages](#61-html-pages)</li>
+<li>6.2 [CSS Design System](#62-css-design-system)</li>
+<li>6.3 [JavaScript Modules](#63-javascript-modules)</li>
+<p>7. [AI Chatbot System](#7-ai-chatbot-system)</p>
+<li>7.1 [Client-Side Architecture](#71-client-side-architecture)</li>
+<li>7.2 [Server-Side API](#72-server-side-api)</li>
+<li>7.3 [Animated Avatar Engine](#73-animated-avatar-engine)</li>
+<li>7.4 [Knowledge Base & Fallback System](#74-knowledge-base--fallback-system)</li>
+<p>8. [Visual Effects & Animations](#8-visual-effects--animations)</p>
+<p>9. [Media & Video Integration](#9-media--video-integration)</p>
+<p>10. [Deployment & Hosting](#10-deployment--hosting)</p>
+<p>11. [SEO & Performance](#11-seo--performance)</p>
+<p>12. [Security Considerations](#12-security-considerations)</p>
+<p>13. [Rules & Coding Conventions](#13-rules--coding-conventions)</p>
+<p>14. [File Reference Index](#14-file-reference-index)</p>
+<p>15. [Appendices](#15-appendices)</p>
+</ul>
+
+<hr>
+
+<h2>1. Executive Summary</h2>
+
+<p>This document provides a comprehensive, thesis-level technical specification of the <strong>Arijeet Ghosal Portfolio Web Application</strong>. The project is a full-stack, production-grade personal portfolio website featuring a custom-built AI chatbot, animated 3D avatar, interactive visual effects, project demonstration videos, and a zero-dependency build optimization pipeline.</p>
+
+<p>The application is designed to showcase professional expertise in data engineering, artificial intelligence, and cloud technologies while serving as a functional platform for client engagement, service booking, and real-time AI-powered conversation.</p>
+
+<p><strong>Key Highlights:</strong></p>
+<ul>
+<li>Zero-framework, vanilla HTML/CSS/JS frontend for maximum performance</li>
+<li>Dual-provider AI chatbot (OpenAI GPT-3.5 + Google Gemini 1.5 Flash) with offline fallback</li>
+<li>Custom SVG robot avatar with breathing, talking, yawning, and sleeping animations</li>
+<li>WebAudio API synthesized sound effects (yawn/snore)</li>
+<li>Python-based build pipeline achieving ~30% code reduction</li>
+<li>Vercel serverless deployment with environment variable management</li>
+<li>Mouse sparkle trail, neural particle canvas, and magnetic cursor effects</li>
+</ul>
+
+<hr>
+
+<h2>2. Project Overview</h2>
+
+<h3>2.1 Purpose</h3>
+
+<p>The portfolio serves three primary objectives:</p>
+
+<p>1. <strong>Professional Showcase:</strong> Present Arijeet Ghosal's experience at Bosch and Microsoft, certifications (Azure, Databricks, TensorFlow, AWS, GCP), and technical projects.</p>
+<p>2. <strong>Client Engagement:</strong> Provide a services marketplace with tiered pricing ($19–$99) and direct contact channels.</p>
+<p>3. <strong>Technical Demonstration:</strong> The website itself demonstrates advanced frontend engineering, AI integration, and production deployment skills.</p>
+
+<h3>2.2 Target Audience</h3>
+
+<ul>
+<li>Potential employers and recruiters</li>
+<li>Freelance clients seeking data engineering and AI services</li>
+<li>Academic peers and collaborators</li>
+<li>Technical community members</li>
+</ul>
+
+<h3>2.3 Core Features</h3>
+
+<table>
+<thead><tr><th>Feature</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>Hero Landing</td><td>Animated introduction with typing effect, stats counters, and CTA buttons</td></tr>
+<tr><td>About Section</td><td>Professional biography with info cards</td></tr>
+<tr><td>Experience Timeline</td><td>Interactive career history (Bosch, Microsoft)</td></tr>
+<tr><td>Projects Gallery</td><td>Project cards with embedded video demonstrations</td></tr>
+<tr><td>Skills Radar</td><td>Interactive skill visualization with animated radar chart</td></tr>
+<tr><td>Certifications Grid</td><td>9 professional certification cards with detail modals</td></tr>
+<tr><td>Services Marketplace</td><td>Tiered service pricing with booking CTAs</td></tr>
+<tr><td>AI Chatbot</td><td>Full conversational AI with voice I/O and animated avatar</td></tr>
+<tr><td>Stress Relief Games</td><td>Interactive mini-games page for engagement</td></tr>
+<tr><td>Mouse Sparkle Trail</td><td>Glitter particles following cursor movement</td></tr>
+</tbody></table>
+
+
+<hr>
+
+<h2>3. Technology Stack</h2>
+
+<h3>3.1 Frontend</h3>
+
+<table>
+<thead><tr><th>Technology</th><th>Purpose</th><th>Version/Details</th></tr></thead>
+<tbody>
+<tr><td>HTML5</td><td>Page structure and semantics</td><td>Semantic elements, ARIA labels</td></tr>
+<tr><td>CSS3</td><td>Styling, animations, responsive design</td><td>Custom properties, keyframes, grid, flexbox</td></tr>
+<tr><td>Vanilla JavaScript</td><td>Interactivity, effects, chatbot client</td><td>ES6+ classes, async/await, Web APIs</td></tr>
+<tr><td>Google Fonts</td><td>Typography</td><td>Space Grotesk, Inter</td></tr>
+</tbody></table>
+
+
+<h3>3.2 Backend / API</h3>
+
+<table>
+<thead><tr><th>Technology</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td>Vercel Serverless Functions</td><td>API endpoint hosting</td></tr>
+<tr><td>Node.js (ESM)</td><td>Serverless runtime</td></tr>
+<tr><td>OpenAI API (GPT-3.5 Turbo)</td><td>Primary AI provider</td></tr>
+<tr><td>Google Gemini API (1.5 Flash)</td><td>Fallback AI provider with Google Search Grounding</td></tr>
+</tbody></table>
+
+
+<h3>3.3 Build Tools</h3>
+
+<table>
+<thead><tr><th>Tool</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td>Python 3</td><td>Build pipeline script (`scripts/build.py`)</td></tr>
+<tr><td>Regular Expressions</td><td>HTML/CSS/JS minification</td></tr>
+<tr><td>shutil</td><td>Binary asset copying</td></tr>
+</tbody></table>
+
+
+<h3>3.4 Web APIs Used</h3>
+
+<table>
+<thead><tr><th>API</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td>Web Speech API (`SpeechRecognition`)</td><td>Voice-to-text input for chatbot</td></tr>
+<tr><td>Web Speech API (`SpeechSynthesis`)</td><td>Text-to-speech output for chatbot responses</td></tr>
+<tr><td>Web Audio API (`AudioContext`)</td><td>Synthesized yawn and snore sound effects</td></tr>
+<tr><td>Canvas API</td><td>Neural network particle background, click particles</td></tr>
+<tr><td>IntersectionObserver API</td><td>Scroll-triggered section reveal animations</td></tr>
+<tr><td>localStorage API</td><td>Chatbot memory, feedback logging, visit tracking</td></tr>
+<tr><td>Fetch API</td><td>API communication with OpenAI/Gemini endpoints</td></tr>
+</tbody></table>
+
+
+<h3>3.5 Deployment</h3>
+
+<table>
+<thead><tr><th>Service</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td>Vercel</td><td>Production hosting and serverless function deployment</td></tr>
+<tr><td>GitHub</td><td>Version control and CI/CD trigger</td></tr>
+</tbody></table>
+
+
+<hr>
+
+<h2>4. Directory Structure & Architecture</h2>
+
+<pre><code class="">
+Portfolio-main/
+├── src/                          # Source development files (readable, commented)
+│   ├── index.html                # Main portfolio page (~1094 lines)
+│   ├── projects.html             # Project hub sub-page
+│   ├── services.html             # Services marketplace sub-page
+│   ├── games.html                # Stress relief games sub-page
+│   ├── style.css                 # Primary stylesheet (~3560 lines)
+│   ├── swiss-override.css        # Design system overrides
+│   ├── avatar3d.css              # Chatbot avatar animations
+│   ├── script.js                 # Main JavaScript (~1180 lines)
+│   ├── common.js                 # Shared effects (neural canvas, cursor)
+│   ├── avatar3d.js               # Chatbot avatar SVG engine
+│   ├── projects.js               # Projects page interactivity
+│   ├── services.js               # Services page interactivity
+│   ├── Avatar.jpg                # Legacy avatar image
+│   ├── chatbot_icon.png          # Chatbot favicon and toggle icon
+│   ├── metahuman_avatar.png      # Metahuman avatar image
+│   └── riya-anime-avatar.png     # Legacy anime avatar
+│
+├── api/                          # Vercel serverless functions
+│   └── chat.js                   # AI chatbot API handler (~158 lines)
+│
+├── scripts/                      # Build and utility scripts
+│   └── build.py                  # Python build pipeline (~182 lines)
+│
+├── videos/                       # Project demonstration media
+│   ├── uber_bi.mp4               # Uber Dashboard demo
+│   ├── credit_card_video.mp4     # Credit Card Dashboard demo
+│   ├── voice_bot.mp4             # Voice Bot demo
+│   ├── complaint_bot.mp4         # Complaint Bot demo
+│   ├── nvh_predictability.mp4    # NVH Analysis demo
+│   ├── dbscan.mp4                # DBSCAN Clustering demo
+│   ├── *_thumbnail.png           # AI-generated video poster images
+│   └── *.webp                    # Browser-captured walkthrough recordings
+│
+├── .context/                     # Build output
+│   └── codebase_context.md       # Token-optimized codebase snapshot
+│
+├── *.html, *.css, *.js           # Production-built (minified) web assets
+├── vercel.json                  # Vercel deployment configuration
+├── .gitignore                    # Git file exclusion rules
+├── package.json                  # Project metadata
+└── chatbot_icon.png              # Production favicon
+</code></pre>
+
+<h3>4.1 Architecture Pattern</h3>
+
+<p>The project follows a <strong>Source → Build → Production</strong> pipeline pattern:</p>
+
+<pre><code class="">
+┌─────────────────────────────────────────────────────┐
+│                   Development                        │
+│  src/*.html, src/*.css, src/*.js (commented, clean)  │
+└───────────────────────┬─────────────────────────────┘
+                        │
+                        ▼
+┌─────────────────────────────────────────────────────┐
+│              Build Pipeline (build.py)               │
+│  HTML minification │ CSS minification │ JS cleaning  │
+│  Binary asset copy │ Context generation              │
+└───────────────────────┬─────────────────────────────┘
+                        │
+                        ▼
+┌─────────────────────────────────────────────────────┐
+│                   Production                         │
+│  Root: *.html, *.css, *.js (optimized, ~30% smaller) │
+│  api/chat.js (serverless)                            │
+│  videos/ (media assets)                              │
+└─────────────────────────────────────────────────────┘
+</code></pre>
+
+<h3>4.2 Data Flow</h3>
+
+<pre><code class="">
+User Browser ──► index.html (static assets)
+     │
+     ├── Neural Canvas (common.js) ──► &lt;canvas&gt; rendering
+     ├── UI Effects (script.js) ──► DOM manipulation
+     ├── Chatbot Input ──► POST /api/chat ──► OpenAI / Gemini
+     │                                    └──► JSON response
+     ├── Chatbot Offline ──► Local Knowledge Base (script.js)
+     ├── Voice Input ──► SpeechRecognition API
+     ├── Voice Output ──► SpeechSynthesis API
+     └── Avatar Animation ──► avatar3d.js + avatar3d.css
+</code></pre>
+
+<hr>
+
+<h2>5. Build Pipeline</h2>
+
+<h3>5.1 Overview</h3>
+
+<p>The build pipeline is implemented in <code>scripts/build.py</code> — a zero-dependency Python 3 script that transforms readable source code into optimized production assets.</p>
+
+<p><strong>Command:</strong></p>
+<pre><code class="bash">
+python3 scripts/build.py
+</code></pre>
+
+<p><strong>Or via npm:</strong></p>
+<pre><code class="bash">
+npm run build
+</code></pre>
+
+<h3>5.2 Pipeline Stages</h3>
+
+<h4>Stage 1: Binary Asset Copy</h4>
+<pre><code class="python">
+BINARY_FILES = ['metahuman_avatar.png', 'Avatar.jpg', 'riya-anime-avatar.png', 'chatbot_icon.png']
+</code></pre>
+<p>All image assets from <code>src/</code> are copied directly to the project root using <code>shutil.copy2()</code> (preserving metadata).</p>
+
+<h4>Stage 2: HTML Minification</h4>
+<pre><code class="python">
+def minify_html(html):
+    minified = re.sub(r'&lt;!--[\s\S]*?--&gt;', '', html)      # Remove HTML comments
+    minified = re.sub(r'\s+', ' ', minified)               # Collapse whitespace
+    minified = re.sub(r'&gt;\s+&lt;', '&gt;&lt;', minified)            # Remove inter-tag spaces
+    return minified.strip()
+</code></pre>
+<ul>
+<li>Removes all HTML comments (<code><!-- ... --></code>)</li>
+<li>Collapses all whitespace sequences into single spaces</li>
+<li>Removes whitespace between HTML tags</li>
+<li><strong>Typical reduction:</strong> ~36%</li>
+</ul>
+
+<h4>Stage 3: CSS Minification</h4>
+<pre><code class="python">
+def minify_css(css):
+    minified = re.sub(r'/\*[\s\S]*?\*/', '', css)          # Remove CSS comments
+    minified = re.sub(r'\s+', ' ', minified)               # Collapse whitespace
+    minified = re.sub(r'\s*([{}:;,])\s*', r'\1', minified) # Remove operator spaces
+    return minified.strip()
+</code></pre>
+<ul>
+<li>Removes all block comments (<code>/* ... */</code>)</li>
+<li>Collapses whitespace</li>
+<li>Strips spaces around CSS delimiters (<code>{</code>, <code>}</code>, <code>:</code>, <code>;</code>, <code>,</code>)</li>
+<li><strong>Typical reduction:</strong> ~29%</li>
+</ul>
+
+<h4>Stage 4: JavaScript Cleaning</h4>
+<pre><code class="python">
+def clean_js(js):
+    minified = re.sub(r'/\*[\s\S]*?\*/', '', js)           # Remove block comments
+    # Line-by-line processing:
+    # - Skip empty lines
+    # - Skip full-line comments (//)
+    # - Safely remove trailing comments (checking for string context)
+    return '\n'.join(cleaned_lines)
+</code></pre>
+<ul>
+<li>Removes block comments</li>
+<li>Strips full-line single-line comments</li>
+<li>Safely removes trailing comments while respecting string literals (checks quote parity)</li>
+<li>Preserves URLs containing <code>://</code></li>
+<li><strong>Typical reduction:</strong> ~29%</li>
+</ul>
+
+<h4>Stage 5: Context Generation</h4>
+<p>Generates <code>.context/codebase_context.md</code> — a unified, token-optimized snapshot of the entire codebase for AI assistant consumption. This file concatenates all optimized source files into a single markdown document with code fences.</p>
+
+<h3>5.3 Build Output Statistics</h3>
+
+<table>
+<thead><tr><th>File</th><th>Source Size</th><th>Built Size</th><th>Reduction</th></tr></thead>
+<tbody>
+<tr><td>index.html</td><td>67.1 KB</td><td>42.9 KB</td><td>36.1%</td></tr>
+<tr><td>style.css</td><td>77.3 KB</td><td>55.1 KB</td><td>28.8%</td></tr>
+<tr><td>script.js</td><td>51.0 KB</td><td>36.4 KB</td><td>28.6%</td></tr>
+<tr><td>swiss-override.css</td><td>21.8 KB</td><td>14.5 KB</td><td>33.6%</td></tr>
+<tr><td>avatar3d.js</td><td>9.5 KB</td><td>8.0 KB</td><td>15.9%</td></tr>
+<tr><td>**Total**</td><td>**~323 KB**</td><td>**~226 KB**</td><td>**~30%**</td></tr>
+</tbody></table>
+
+
+<h3>5.4 Build Rules</h3>
+
+<p>1. <strong>Source files are NEVER served directly</strong> — only built output is served in production.</p>
+<p>2. <strong>All edits must be made in <code>src/</code></strong> — the root files are overwritten on each build.</p>
+<p>3. <strong>Binary files must be registered</strong> in the <code>BINARY_FILES</code> list to be copied.</p>
+<p>4. <strong>The <code>api/</code> directory is NOT processed</strong> by the build pipeline (Vercel handles it directly).</p>
+<p>5. <strong>The <code>videos/</code> directory is NOT processed</strong> — media assets are served as-is.</p>
+
+<hr>
+
+<h2>6. Frontend Architecture</h2>
+
+<h3>6.1 HTML Pages</h3>
+
+<h4>6.1.1 `index.html` — Main Portfolio (~1094 lines)</h4>
+
+<p>The primary landing page containing all portfolio sections:</p>
+
+<table>
+<thead><tr><th>Section</th><th>Lines</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>Preloader</td><td>19–36</td><td>SVG ring animation with progress bar</td></tr>
+<tr><td>Scroll Progress</td><td>38–39</td><td>Fixed top bar showing page scroll position</td></tr>
+<tr><td>Neural Canvas</td><td>41–42</td><td>Background particle network animation</td></tr>
+<tr><td>Click Canvas</td><td>44–45</td><td>Explosion particles on mouse click</td></tr>
+<tr><td>Scanline Overlay</td><td>47–48</td><td>CRT-style horizontal line sweep effect</td></tr>
+<tr><td>Custom Cursor</td><td>50–52</td><td>Magnetic dot cursor with trailing ring</td></tr>
+<tr><td>Side Navigation</td><td>54–63</td><td>Dot-based section jump navigation</td></tr>
+<tr><td>Back-to-Top</td><td>65–68</td><td>Floating scroll-to-top button</td></tr>
+<tr><td>Navigation Bar</td><td>70–92</td><td>Fixed header with page links</td></tr>
+<tr><td>Hero Section</td><td>93–158</td><td>Name, title, typing effect, stats, CTAs</td></tr>
+<tr><td>About Section</td><td>159–241</td><td>Bio text with info icon cards</td></tr>
+<tr><td>Experience Section</td><td>242–320</td><td>Career timeline (Bosch, Microsoft)</td></tr>
+<tr><td>Projects Section</td><td>321–471</td><td>Project cards with video players</td></tr>
+<tr><td>Skills Section</td><td>472–629</td><td>Skill bars + interactive radar chart</td></tr>
+<tr><td>Certifications</td><td>630–929</td><td>9 certification cards with details</td></tr>
+<tr><td>Services Teaser</td><td>930–964</td><td>CTA for services page</td></tr>
+<tr><td>Contact Section</td><td>965–1013</td><td>Email, LinkedIn, GitHub, location cards</td></tr>
+<tr><td>Footer</td><td>1014–1031</td><td>Copyright and social links</td></tr>
+<tr><td>AI Chatbot Widget</td><td>1042–1086</td><td>Chatbot container, toggle, window</td></tr>
+</tbody></table>
+
+
+<h4>6.1.2 `projects.html` — Project Hub</h4>
+
+<p>Categorized project directory with filtering. Uses inline CSS overrides to ensure visibility (since <code>script.js</code> is not loaded on sub-pages).</p>
+
+<h4>6.1.3 `services.html` — Services Marketplace</h4>
+
+<p>Detailed service listings with:</p>
+<ul>
+<li>Data Analysis ($19)</li>
+<li>Data Visualization ($29)</li>
+<li>Data Engineering ($49)</li>
+<li>AI/Dev Builds ($99)</li>
+</ul>
+
+<h4>6.1.4 `games.html` — Stress Relief Games</h4>
+
+<p>Interactive mini-games including breathing exercises and click-based games. Self-contained with inline JavaScript and styles.</p>
+
+<h3>6.2 CSS Design System</h3>
+
+<h4>6.2.1 `style.css` — Primary Stylesheet (~3560 lines)</h4>
+
+<p><strong>Design Tokens (CSS Custom Properties):</strong></p>
+<pre><code class="css">
+:root {
+    --primary: #00f0ff;          /* Cyan accent */
+    --primary-glow: rgba(0, 240, 255, 0.3);
+    --accent: #8b5cf6;           /* Purple accent */
+    --bg-primary: #07131d;       /* Dark navy background */
+    --bg-card: #0d1b2a;          /* Card backgrounds */
+    --text-primary: #e2e8f0;     /* Light text */
+    --text-secondary: #94a3b8;   /* Muted text */
+    --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+</code></pre>
+
+<p><strong>Key CSS Architecture:</strong></p>
+<ul>
+<li><strong>Scroll-triggered animations:</strong> All <code>.section</code> elements start at <code>opacity: 0; transform: translateY(40px)</code> and transition to visible via the <code>.visible</code> class added by IntersectionObserver.</li>
+<li><strong>Card spotlight effect:</strong> Cards have a radial gradient <code>::before</code> pseudo-element that follows mouse position.</li>
+<li><strong>Responsive breakpoints:</strong> <code>480px</code>, <code>768px</code>, <code>1024px</code>, <code>1200px</code></li>
+</ul>
+
+<h4>6.2.2 `swiss-override.css` — Design Overrides (~550 lines)</h4>
+
+<p>Provides Swiss/Bauhaus-inspired design enhancements:</p>
+<ul>
+<li>Enhanced typography scales</li>
+<li>Refined spacing and grid systems</li>
+<li>Label and badge styling</li>
+<li>Enhanced button treatments</li>
+</ul>
+
+<h4>6.2.3 `avatar3d.css` — Avatar Animations (~65 lines)</h4>
+
+<p>Defines all chatbot avatar animation keyframes:</p>
+
+<table>
+<thead><tr><th>Animation</th><th>Trigger</th><th>Effect</th></tr></thead>
+<tbody>
+<tr><td>`riyaFloat`</td><td>Always (idle)</td><td>Gentle vertical bobbing</td></tr>
+<tr><td>`riyaTalk`</td><td>`.riya-speaking`</td><td>Mouth scale oscillation</td></tr>
+<tr><td>`riyaExpress`</td><td>`.riya-speaking`</td><td>Eye micro-movement</td></tr>
+<tr><td>`riyaNod`</td><td>`.riya-speaking`</td><td>Head nodding</td></tr>
+<tr><td>`riyaYawn`</td><td>`.riya-yawn`</td><td>Mouth wide open stretch</td></tr>
+<tr><td>`riyaSleepy`</td><td>`.riya-yawn`</td><td>Eyes close</td></tr>
+<tr><td>`riyaDeepBreathe`</td><td>`.riya-sleeping-mode`</td><td>Slow body rise/fall</td></tr>
+<tr><td>`zzzFloat`</td><td>`.riya-sleeping-mode`</td><td>Floating "Zzz..." text</td></tr>
+<tr><td>`sparkleLife`</td><td>Mouse movement</td><td>Glitter particle fade-out</td></tr>
+</tbody></table>
+
+
+<h3>6.3 JavaScript Modules</h3>
+
+<h4>6.3.1 `script.js` — Main Application (~1180 lines)</h4>
+
+<p>Contains the following classes and systems:</p>
+
+<table>
+<thead><tr><th>Class/System</th><th>Lines</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td>`Preloader`</td><td>~1–50</td><td>Manages loading animation and fade-out</td></tr>
+<tr><td>`HeroTyping`</td><td>~50–90</td><td>Typewriter effect for role titles</td></tr>
+<tr><td>`StatsCounter`</td><td>~90–140</td><td>Animated number counting for hero stats</td></tr>
+<tr><td>`ScrollObserver`</td><td>~140–200</td><td>IntersectionObserver for section reveals</td></tr>
+<tr><td>`RadarChart`</td><td>~200–350</td><td>Canvas-based skill visualization</td></tr>
+<tr><td>`TiltEffect`</td><td>~350–400</td><td>3D card tilt on mouse hover</td></tr>
+<tr><td>`MagneticButtons`</td><td>~400–450</td><td>Buttons that attract toward cursor</td></tr>
+<tr><td>`Chatbot`</td><td>~450–1080</td><td>Full AI chatbot client (see Section 7)</td></tr>
+<tr><td>Sparkle Trail</td><td>~1140–1180</td><td>Mouse glitter particle spawner</td></tr>
+</tbody></table>
+
+
+<h4>6.3.2 `common.js` — Shared Effects (~313 lines)</h4>
+
+<table>
+<thead><tr><th>Class</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td>`NeuralCanvas`</td><td>Animated particle network background with mouse interaction</td></tr>
+<tr><td>`ClickParticles`</td><td>Explosion particle effect on mouse click</td></tr>
+<tr><td>`CustomCursor`</td><td>Magnetic custom cursor with dot + ring</td></tr>
+<tr><td>`ScrollProgress`</td><td>Top progress bar tracking page scroll</td></tr>
+<tr><td>`BackToTop`</td><td>Floating back-to-top button visibility</td></tr>
+<tr><td>`Parallax`</td><td>Parallax scrolling effect on hero elements</td></tr>
+<tr><td>`CardSpotlight`</td><td>Mouse-tracking radial gradient on cards</td></tr>
+<tr><td>`KeyboardNav`</td><td>Keyboard accessibility (Tab focus ring)</td></tr>
+</tbody></table>
+
+
+<h4>6.3.3 `avatar3d.js` — Avatar Engine (~220 lines)</h4>
+
+<p>See Section 7.3 for detailed documentation.</p>
+
+<h4>6.3.4 `projects.js` & `services.js`</h4>
+
+<p>Page-specific scripts that initialize shared UI components (section reveals, navigation) on sub-pages that don't load <code>script.js</code>.</p>
+
+<hr>
+
+<h2>7. AI Chatbot System</h2>
+
+<p>The chatbot is the most complex subsystem, spanning three files and integrating multiple Web APIs.</p>
+
+<h3>7.1 Client-Side Architecture</h3>
+
+<p><strong>Class: <code>Chatbot</code></strong> (in <code>script.js</code>)</p>
+
+<h4>7.1.1 Initialization</h4>
+
+<pre><code class="javascript">
+class Chatbot {
+    constructor() {
+        this.STORAGE_KEY = 'riya_memory';
+        this.FAQ_KEY = 'riya_faq';
+        this.FEEDBACK_KEY = 'riya_feedback';
+        // ... DOM element references, localStorage loading
+    }
+}
+</code></pre>
+
+<p><strong>localStorage Keys:</strong></p>
+<table>
+<thead><tr><th>Key</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td>`riya_memory`</td><td>Visit count, topic frequency map, last visit timestamp</td></tr>
+<tr><td>`riya_faq`</td><td>Cached question/answer pairs for offline retrieval</td></tr>
+<tr><td>`riya_feedback`</td><td>User thumbs-up/down ratings on responses</td></tr>
+</tbody></table>
+
+
+<h4>7.1.2 Message Flow</h4>
+
+<pre><code class="">
+User types message
+    │
+    ▼
+sendMessage()
+    │
+    ├── Append user message to DOM
+    ├── Track topic keywords in memory
+    ├── Show typing indicator
+    │
+    ▼
+callChatAPI(message, webSearch)
+    │
+    ├── POST /api/chat with { message, history, context, webSearch }
+    │       │
+    │       ├── Success → Display bot response
+    │       │              ├── Add feedback buttons (👍/👎)
+    │       │              ├── Add speech button (🔊)
+    │       │              └── Cache in FAQ store
+    │       │
+    │       └── Failure → Fall through to local knowledge base
+    │
+    ▼
+generateCrazyAnswer(query)  [Offline Fallback]
+    │
+    ├── Pattern-match against local knowledge base
+    ├── Tricky question handler
+    ├── Topic-specific responses (Uber, Voice Bot, etc.)
+    ├── Fun responses (jokes, AI facts, Easter eggs)
+    └── Generic helpful fallbacks
+</code></pre>
+
+<h4>7.1.3 Voice Input (Speech-to-Text)</h4>
+
+<pre><code class="javascript">
+// Uses Web Speech API
+this.recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+this.recognition.lang = 'en-US';
+this.recognition.interimResults = false;
+</code></pre>
+
+<ul>
+<li>Microphone button (🎙️) toggles recording</li>
+<li>Recording state shows red pulsing animation</li>
+<li>Transcribed text is auto-sent as a message</li>
+</ul>
+
+<h4>7.1.4 Voice Output (Text-to-Speech)</h4>
+
+<pre><code class="javascript">
+speakResponse(text) {
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    utterance.rate = 1.05;
+    utterance.pitch = 1.0;
+    window.speechSynthesis.speak(utterance);
+}
+</code></pre>
+
+<ul>
+<li>Speech button (🔊) on each bot response</li>
+<li>Triggers avatar speaking animation via <code>riya:speech-start</code> event</li>
+<li>Cleans HTML tags and emojis before speaking</li>
+</ul>
+
+<h3>7.2 Server-Side API</h3>
+
+<p><strong>File:</strong> <code>api/chat.js</code>  </p>
+<p><strong>Runtime:</strong> Vercel Serverless Function (Node.js ESM)  </p>
+<p><strong>Endpoint:</strong> <code>POST /api/chat</code></p>
+
+<h4>7.2.1 Request Schema</h4>
+
+<pre><code class="json">
+{
+    "message": "string",
+    "history": [
+        { "role": "user|assistant", "content": "string" }
+    ],
+    "context": "string (optional session context)",
+    "webSearch": true | false
+}
+</code></pre>
+
+<h4>7.2.2 Provider Cascade</h4>
+
+<pre><code class="">
+1. OpenAI GPT-3.5 Turbo (Primary)
+   ├── Model: gpt-3.5-turbo
+   ├── Temperature: 0.85
+   ├── Max Tokens: 180
+   └── Conversation history: last 4 messages
+
+2. Google Gemini 1.5 Flash (Fallback)
+   ├── Model: gemini-1.5-flash
+   ├── Temperature: 0.85
+   ├── Max Tokens: 220
+   ├── Google Search Grounding (when webSearch=true)
+   └── System instruction support
+
+3. HTTP 500 Error (Both fail)
+   └── Client falls back to local knowledge base
+</code></pre>
+
+<h4>7.2.3 System Prompt Architecture</h4>
+
+<p>The system prompt contains:</p>
+<ul>
+<li><strong>Identity:</strong> "You are Chatbot, a polished, professional portfolio assistant"</li>
+<li><strong>Rules:</strong> Never refuse, always answer confidently, keep fresh wording</li>
+<li><strong>Detailed Facts:</strong> Full biography, skills, projects, certifications, contact, pricing</li>
+<li><strong>Tricky Question Handling:</strong> Example Q&A pairs for indirect questions</li>
+<li><strong>Behavioral Constraints:</strong> No session stats, no repetition</li>
+</ul>
+
+<h4>7.2.4 Environment Variables</h4>
+
+<table>
+<thead><tr><th>Variable</th><th>Provider</th><th>Required</th></tr></thead>
+<tbody>
+<tr><td>`OPENAI_API_KEY`</td><td>OpenAI</td><td>Optional (primary)</td></tr>
+<tr><td>`GEMINI_API_KEY`</td><td>Google</td><td>Optional (fallback)</td></tr>
+</tbody></table>
+
+
+<p>At least one must be configured for online AI responses.</p>
+
+<h3>7.3 Animated Avatar Engine</h3>
+
+<p><strong>File:</strong> <code>avatar3d.js</code></p>
+
+<h4>7.3.1 SVG Robot Design</h4>
+
+<p>The avatar is a vector SVG robot assistant rendered inline:</p>
+
+<pre><code class="">
+┌─────────────────────────────┐
+│     ○           ○           │  ← Antenna LED nodes
+│   ┌───┐       ┌───┐        │  ← Antenna pillars
+│   │   │       │   │        │
+│   └───┘       └───┘        │
+│  ┌─────────────────────┐   │
+│  │  ┌──────────────┐   │   │  ← Helmet (rounded rect)
+│  │  │              │   │   │
+│  │  │  (●)    (●)  │   │   │  ← Glowing LED Eyes
+│  │  │              │   │   │
+│  │  │   ~~~~~~~~   │   │   │  ← Digital Wave Mouth
+│  │  └──────────────┘   │   │  ← Visor screen plate
+│  └─────────────────────┘   │
+│       ┌──────────┐         │  ← Structural neck
+│       │  ══════  │         │
+│       │  ══════  │         │
+│   ┌───┴──────────┴───┐    │
+│   │    ┌──────┐      │    │  ← Torso with power core
+│   │    │  ●   │      │    │  ← Glowing core indicator
+│   │    └──────┘      │    │
+│   └──────────────────┘    │
+│                            │
+│   ╌╌╌○╌╌╌╌╌╌╌╌○╌╌╌       │  ← Holographic base rings
+│      ╌╌╌○╌╌╌○╌╌╌         │
+└─────────────────────────────┘
+</code></pre>
+
+<p><strong>SVG Features:</strong></p>
+<ul>
+<li>Linear gradients (<code>bodyG</code>: dark navy, <code>glowG</code>: cyan-to-purple)</li>
+<li>Gaussian blur glow filter (<code>glowF</code>)</li>
+<li>Concentric holographic base ellipses with dash patterns</li>
+</ul>
+
+<h4>7.3.2 State Machine</h4>
+
+<pre><code class="">
+                   ┌──────────────────┐
+                   │    IDLE STATE     │
+                   │  riyaFloat anim   │
+                   └────────┬─────────┘
+                            │
+              12s idle      │      User interaction
+         ┌──────────────────┤◄──────────────────┐
+         ▼                  │                    │
+┌────────────────┐          │           ┌────────┴────────┐
+│  YAWN STATE    │          │           │  SPEAKING STATE  │
+│  riyaYawn anim │   12s    │           │  riyaTalk anim   │
+│  Yawn sound    │  more    │           │  riyaExpress     │
+└────────┬───────┘          │           │  riyaNod         │
+         │                  │           └─────────────────┘
+         ▼                  │
+┌────────────────┐          │
+│  SLEEP STATE   │──────────┘
+│  Eyes closed   │   (any interaction wakes up)
+│  Deep breathe  │
+│  Snore sounds  │
+│  "Zzz..." text │
+└────────────────┘
+</code></pre>
+
+<p><strong>Sound Guard:</strong> All sounds are muted when the chatbot window is closed (<code>!chat.classList.contains('open')</code>).</p>
+
+<h4>7.3.3 Audio Synthesis</h4>
+
+<p><strong>Yawn Sound:</strong></p>
+<pre><code class="javascript">
+// Triangle oscillator, descending frequency 280Hz → 75Hz over 2 seconds
+osc.type = 'triangle';
+osc.frequency.setValueAtTime(280, audioCtx.currentTime);
+osc.frequency.exponentialRampToValueAtTime(75, audioCtx.currentTime + 2.0);
+</code></pre>
+
+<p><strong>Snore Sound:</strong></p>
+<pre><code class="javascript">
+// Sawtooth oscillator at 45Hz through bandpass filter at 140Hz
+// Simulates rhythmic inhale/exhale breathing pattern
+osc.type = 'sawtooth';
+osc.frequency.setValueAtTime(45, audioCtx.currentTime);
+// Gain envelope: 0 → 0.08 (inhale) → 0.001 (exhale)
+</code></pre>
+
+<h3>7.4 Knowledge Base & Fallback System</h3>
+
+<p>When the API is unavailable, the chatbot uses a local pattern-matching knowledge base in <code>generateCrazyAnswer(query)</code>:</p>
+
+<table>
+<thead><tr><th>Pattern Keywords</th><th>Response Category</th></tr></thead>
+<tbody>
+<tr><td>`plan`, `master`, `world`</td><td>Humorous master plan responses</td></tr>
+<tr><td>`know him`, `how well`, `any good`, `can he`</td><td>Tricky question handler (confident positive answers)</td></tr>
+<tr><td>`who` + `arijeet`/`ghosal`/`creator`</td><td>About Arijeet responses</td></tr>
+<tr><td>`uber`, `taxi`, `ride`</td><td>Uber Dashboard project details</td></tr>
+<tr><td>`fact`, `crazy`, `science`</td><td>AI fun facts</td></tr>
+<tr><td>`joke`, `funny`, `laugh`</td><td>AI-themed jokes</td></tr>
+<tr><td>`hire`, `service`, `price`</td><td>Services and pricing info</td></tr>
+<tr><td>`skill`, `tech`, `stack`</td><td>Technical skills overview</td></tr>
+<tr><td>`news`, `latest`, `update`</td><td>AI news (with web search grounding)</td></tr>
+<tr><td>`build`, `pipeline`, `architect`</td><td>Architecture guidance</td></tr>
+<tr><td>*(no match)*</td><td>Helpful fallback with topic suggestions</td></tr>
+</tbody></table>
+
+
+<hr>
+
+<h2>8. Visual Effects & Animations</h2>
+
+<h3>8.1 Neural Network Particle Canvas</h3>
+
+<p><strong>File:</strong> <code>common.js</code>, Class: <code>NeuralCanvas</code></p>
+
+<ul>
+<li>Renders 50–100 floating particles on <code><canvas></code> element</li>
+<li>Particles connect with lines when within 140px distance</li>
+<li>Mouse interaction: particles within 180px radius are repelled</li>
+<li>Color scheme: cyan (#00f0ff) and purple (#8b5cf6)</li>
+<li>Runs at 60fps via <code>requestAnimationFrame</code></li>
+</ul>
+
+<h3>8.2 Click Particle Explosions</h3>
+
+<p><strong>File:</strong> <code>common.js</code>, Class: <code>ClickParticles</code></p>
+
+<ul>
+<li>On mouse click, spawns 12 particles radiating outward</li>
+<li>Particles have random velocities, sizes, and colors</li>
+<li>Gravity simulation pulls particles downward</li>
+<li>2-second lifetime with opacity fade</li>
+</ul>
+
+<h3>8.3 Custom Magnetic Cursor</h3>
+
+<p><strong>File:</strong> <code>common.js</code>, Class: <code>CustomCursor</code></p>
+
+<ul>
+<li>Replaces default cursor with a small dot + larger trailing ring</li>
+<li>Ring smoothly follows dot with easing (lerp factor 0.15)</li>
+<li>Both scale up on hover over interactive elements</li>
+<li>Hidden on mobile devices (pointer: coarse)</li>
+</ul>
+
+<h3>8.4 Mouse Sparkle Trail</h3>
+
+<p><strong>File:</strong> <code>script.js</code> (bottom)</p>
+
+<ul>
+<li>Spawns 1–2 glowing particles per mouse movement event</li>
+<li>Throttled to ~25fps for performance</li>
+<li>6 color palette: cyan, purple, green, pink, gold, white</li>
+<li>Random size (3–9px), random drift direction</li>
+<li>CSS custom properties <code>--sx</code> and <code>--sy</code> control drift vector</li>
+<li>Particles self-remove after 0.7s animation</li>
+</ul>
+
+<h3>8.5 Scroll-Triggered Section Reveals</h3>
+
+<p><strong>File:</strong> <code>script.js</code>, Function: <code>initScrollObserver</code></p>
+
+<ul>
+<li>Uses <code>IntersectionObserver</code> with <code>threshold: 0.15</code></li>
+<li>Adds <code>.visible</code> class when section enters viewport</li>
+<li>CSS transition: <code>opacity 0→1</code>, <code>translateY 40px→0</code></li>
+<li>Children (cards, timeline items) stagger with <code>transition-delay</code></li>
+</ul>
+
+<h3>8.6 Card Spotlight Effect</h3>
+
+<p><strong>File:</strong> <code>common.js</code>, Function: <code>initCardSpotlight</code></p>
+
+<ul>
+<li>Tracks mouse position over <code>.project-card</code> elements</li>
+<li>Sets <code>--mouse-x</code> and <code>--mouse-y</code> CSS custom properties</li>
+<li><code>::before</code> pseudo-element renders radial gradient at cursor position</li>
+<li>Creates a "flashlight" hover effect</li>
+</ul>
+
+<hr>
+
+<h2>9. Media & Video Integration</h2>
+
+<h3>9.1 Video Player Configuration</h3>
+
+<p>All project demonstration videos use native HTML5 <code><video></code> elements:</p>
+
+<pre><code class="html">
+&lt;video controls preload="metadata" poster="videos/uber_thumbnail.png"
+       style="width: 100%; border-radius: 12px;"&gt;
+    &lt;source src="videos/uber_bi.mp4" type="video/mp4"&gt;
+&lt;/video&gt;
+</code></pre>
+
+<h3>9.2 Video Assets</h3>
+
+<table>
+<thead><tr><th>Video</th><th>Project</th><th>File Size</th><th>Thumbnail</th></tr></thead>
+<tbody>
+<tr><td>`uber_bi.mp4`</td><td>Uber Data Dashboard</td><td>6.9 MB</td><td>AI-generated dark dashboard</td></tr>
+<tr><td>`credit_card_video.mp4`</td><td>Credit Card Analytics</td><td>4.3 MB</td><td>AI-generated platinum card UI</td></tr>
+<tr><td>`voice_bot.mp4`</td><td>Voice Bot Assistant</td><td>101 MB</td><td>AI-generated audio waveform</td></tr>
+<tr><td>`complaint_bot.mp4`</td><td>NLP Complaint Bot</td><td>21.4 MB</td><td>AI-generated robot chat UI</td></tr>
+<tr><td>`nvh_predictability.mp4`</td><td>NVH Signal Analysis</td><td>7.8 MB</td><td>AI-generated vibration graph</td></tr>
+<tr><td>`dbscan.mp4`</td><td>DBSCAN Clustering</td><td>27.6 MB</td><td>AI-generated cluster viz</td></tr>
+</tbody></table>
+
+
+<h3>9.3 Thumbnail Generation</h3>
+
+<p>All video thumbnails were generated using AI image generation with custom prompts describing dark-themed, futuristic dashboard mockups matching the portfolio's design language.</p>
+
+<hr>
+
+<h2>10. Deployment & Hosting</h2>
+
+<h3>10.1 Vercel Configuration</h3>
+
+<p>The project is deployed on <strong>Vercel</strong> with the following configuration:</p>
+
+<ul>
+<li><strong>Framework Preset:</strong> Other (static site)</li>
+<li><strong>Build Command:</strong> <code>python3 scripts/build.py</code></li>
+<li><strong>Output Directory:</strong> <code>.</code> (root directory — configured via <code>vercel.json</code>)</li>
+<li><strong>Serverless Functions:</strong> <code>api/chat.js</code> auto-detected by Vercel</li>
+</ul>
+
+<h4>10.1.1 Vercel Configuration File (`vercel.json`)</h4>
+
+<p>To prevent the "No Output Directory named 'public' found" error during automated deployment, a <code>vercel.json</code> file is placed in the root directory:</p>
+
+<pre><code class="json">
+{
+  "outputDirectory": "."
+}
+</code></pre>
+
+<p>This configuration instructs Vercel that the static output generated by the build pipeline resides in the root directory, ensuring successful deployments.</p>
+
+<h3>10.2 Environment Variables (Vercel Dashboard)</h3>
+
+<table>
+<thead><tr><th>Variable</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>`OPENAI_API_KEY`</td><td>OpenAI API key for GPT-3.5 Turbo</td></tr>
+<tr><td>`GEMINI_API_KEY`</td><td>Google AI API key for Gemini 1.5 Flash</td></tr>
+</tbody></table>
+
+
+<h3>10.3 Local Development</h3>
+
+<pre><code class="bash">
+# Build optimized assets
+python3 scripts/build.py
+
+# Start local server
+python3 -m http.server 8080
+
+# Visit http://localhost:8080
+</code></pre>
+
+<p><strong>Note:</strong> The chatbot API (<code>/api/chat</code>) will return 404 on local dev server since Vercel serverless functions require the Vercel CLI or cloud deployment.</p>
+
+<hr>
+
+<h2>11. SEO & Performance</h2>
+
+<h3>11.1 SEO Implementation</h3>
+
+<table>
+<thead><tr><th>Element</th><th>Implementation</th></tr></thead>
+<tbody>
+<tr><td>Title Tag</td><td>`<title>Arijeet Ghosal \</td><td>Data Engineer & AI Enthusiast</title>`</td></tr>
+<tr><td>Meta Description</td><td>Comprehensive description with keywords</td></tr>
+<tr><td>Meta Keywords</td><td>Targeted data engineering and AI terms</td></tr>
+<tr><td>Meta Author</td><td>`Arijeet Ghosal`</td></tr>
+<tr><td>Semantic HTML</td><td>`<section>`, `<nav>`, `<header>`, `<footer>`, `<main>`</td></tr>
+<tr><td>Heading Hierarchy</td><td>Single `<h1>`, proper `<h2>`–`<h4>` nesting</td></tr>
+<tr><td>ARIA Labels</td><td>All interactive elements have `aria-label` attributes</td></tr>
+<tr><td>Alt Text</td><td>All images have descriptive `alt` attributes</td></tr>
+<tr><td>Favicon</td><td>Custom chatbot icon (`chatbot_icon.png`) on all pages</td></tr>
+</tbody></table>
+
+
+<h3>11.2 Performance Optimizations</h3>
+
+<table>
+<thead><tr><th>Optimization</th><th>Impact</th></tr></thead>
+<tbody>
+<tr><td>Build pipeline minification</td><td>~30% file size reduction</td></tr>
+<tr><td>Font preconnect</td><td>Faster Google Fonts loading</td></tr>
+<tr><td>`preload="metadata"` on videos</td><td>No auto-download of video content</td></tr>
+<tr><td>Canvas-based effects (vs DOM)</td><td>GPU-accelerated rendering</td></tr>
+<tr><td>Sparkle throttling (40ms)</td><td>Prevents DOM flooding</td></tr>
+<tr><td>`requestAnimationFrame`</td><td>Synced to display refresh rate</td></tr>
+<tr><td>Lazy section reveals</td><td>Content rendered only when in viewport</td></tr>
+</tbody></table>
+
+
+<hr>
+
+<h2>12. Security Considerations</h2>
+
+<table>
+<thead><tr><th>Risk</th><th>Mitigation</th></tr></thead>
+<tbody>
+<tr><td>API Key Exposure</td><td>Keys stored in Vercel environment variables, never in client code</td></tr>
+<tr><td>XSS in Chat</td><td>Bot responses are inserted as `textContent` or sanitized HTML</td></tr>
+<tr><td>CORS</td><td>API handler sets `Access-Control-Allow-Origin: *` for public access</td></tr>
+<tr><td>Rate Limiting</td><td>OpenAI/Gemini enforce their own rate limits; no client-side throttle</td></tr>
+<tr><td>localStorage Abuse</td><td>Data size capped (100 feedback entries, 50 FAQ items)</td></tr>
+</tbody></table>
+
+
+<hr>
+
+<h2>13. Rules & Coding Conventions</h2>
+
+<h3>13.1 Development Rules</h3>
+
+<p>1. <strong>All edits go in <code>src/</code></strong> — never edit root-level built files directly.</p>
+<p>2. <strong>Run <code>python3 scripts/build.py</code> after every change</strong> to compile to production.</p>
+<p>3. <strong>New binary assets must be added to <code>BINARY_FILES</code></strong> in <code>build.py</code>.</p>
+<p>4. <strong>Sub-pages (<code>projects.html</code>, <code>services.html</code>, <code>games.html</code>) must include inline CSS overrides</strong> to force <code>opacity: 1</code> on animated elements, since they don't load <code>script.js</code>.</p>
+<p>5. <strong>The chatbot system prompt in <code>api/chat.js</code></strong> must be updated whenever Arijeet's facts change.</p>
+<p>6. <strong>Keep local repository clean:</strong> Ensure <code>.DS_Store</code> and other temp junk files are not tracked in Git by maintaining the <code>.gitignore</code> exclusions.</p>
+<p>7. <strong>Do not track nested duplicate folders:</strong> Never check in duplicate subfolders (e.g. <code>Portfolio/</code>). Keep project files directly under the repository root.</p>
+<p>8. <strong>Git sync best practices:</strong> When syncing local updates with a diverging remote history, check out a sync branch from <code>origin/main</code>, apply your changes, remove duplicate files, and commit. Fast-forward local <code>main</code> and push cleanly. Avoid force-pushing to prevent erasing commit history.</p>
+
+<h3>13.2 CSS Naming Conventions</h3>
+
+<ul>
+<li><strong>BEM-inspired:</strong> <code>.chatbot-toggle</code>, <code>.chatbot-header-info</code>, <code>.project-card</code></li>
+<li><strong>State classes:</strong> <code>.visible</code>, <code>.open</code>, <code>.recording</code>, <code>.riya-speaking</code>, <code>.riya-sleeping-mode</code></li>
+<li><strong>Utility prefixes:</strong> <code>.btn-icon</code>, <code>.meta-badge</code>, <code>.cert-icon</code></li>
+</ul>
+
+<h3>13.3 JavaScript Conventions</h3>
+
+<ul>
+<li><strong>ES6+ Classes</strong> for all major components</li>
+<li><strong>Event-driven communication</strong> between modules (CustomEvent dispatch)</li>
+<li><strong>Defensive coding:</strong> Optional chaining (<code>?.</code>) and nullish checks throughout</li>
+<li><strong>Performance:</strong> <code>requestAnimationFrame</code> for animations, throttled event handlers</li>
+</ul>
+
+<hr>
+
+<h2>14. File Reference Index</h2>
+
+<table>
+<thead><tr><th>File</th><th>Type</th><th>Size</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td>`src/index.html`</td><td>HTML</td><td>68 KB</td><td>Main portfolio page</td></tr>
+<tr><td>`src/projects.html`</td><td>HTML</td><td>5.5 KB</td><td>Projects hub page</td></tr>
+<tr><td>`src/services.html`</td><td>HTML</td><td>25 KB</td><td>Services marketplace</td></tr>
+<tr><td>`src/games.html`</td><td>HTML</td><td>27 KB</td><td>Stress relief games</td></tr>
+<tr><td>`src/style.css`</td><td>CSS</td><td>79 KB</td><td>Primary stylesheet</td></tr>
+<tr><td>`src/swiss-override.css`</td><td>CSS</td><td>22 KB</td><td>Design overrides</td></tr>
+<tr><td>`src/avatar3d.css`</td><td>CSS</td><td>3.3 KB</td><td>Avatar animations</td></tr>
+<tr><td>`src/script.js`</td><td>JS</td><td>51 KB</td><td>Main application logic</td></tr>
+<tr><td>`src/common.js`</td><td>JS</td><td>11 KB</td><td>Shared visual effects</td></tr>
+<tr><td>`src/avatar3d.js`</td><td>JS</td><td>9.5 KB</td><td>Avatar SVG engine</td></tr>
+<tr><td>`src/projects.js`</td><td>JS</td><td>14 KB</td><td>Projects page logic</td></tr>
+<tr><td>`src/services.js`</td><td>JS</td><td>12 KB</td><td>Services page logic</td></tr>
+<tr><td>`api/chat.js`</td><td>JS</td><td>7.3 KB</td><td>Serverless AI handler</td></tr>
+<tr><td>`scripts/build.py`</td><td>Python</td><td>6.6 KB</td><td>Build pipeline</td></tr>
+<tr><td>`vercel.json`</td><td>JSON</td><td>0.1 KB</td><td>Vercel deployment configuration</td></tr>
+<tr><td>`.gitignore`</td><td>Text</td><td>0.1 KB</td><td>Git file exclusion rules</td></tr>
+<tr><td>`package.json`</td><td>JSON</td><td>0.5 KB</td><td>Project metadata</td></tr>
+<tr><td>`chatbot_icon.png`</td><td>PNG</td><td>98 KB</td><td>Favicon and chatbot icon</td></tr>
+<tr><td>`videos/*.mp4`</td><td>MP4</td><td>~170 MB</td><td>Project demo videos</td></tr>
+</tbody></table>
+
+
+<hr>
+
+<h2>15. Appendices</h2>
+
+<h3>Appendix A: Full Dependency List</h3>
+
+<p>This project has <strong>zero npm runtime dependencies</strong>. The only tooling dependency is <strong>Python 3</strong> for the build pipeline. All JavaScript is vanilla ES6+ with no frameworks, libraries, or bundlers.</p>
+
+<h3>Appendix B: Browser Compatibility</h3>
+
+<table>
+<thead><tr><th>Feature</th><th>Chrome</th><th>Firefox</th><th>Safari</th><th>Edge</th></tr></thead>
+<tbody>
+<tr><td>CSS Custom Properties</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>IntersectionObserver</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>Web Speech API</td><td>✅</td><td>⚠️ Partial</td><td>✅</td><td>✅</td></tr>
+<tr><td>Web Audio API</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>Canvas API</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>CSS Grid/Flexbox</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+</tbody></table>
+
+
+<h3>Appendix C: Color Palette</h3>
+
+<table>
+<thead><tr><th>Name</th><th>Hex</th><th>Usage</th></tr></thead>
+<tbody>
+<tr><td>Primary Cyan</td><td>`#00f0ff`</td><td>Accents, links, glowing effects</td></tr>
+<tr><td>Accent Purple</td><td>`#8b5cf6`</td><td>Secondary accents, gradients</td></tr>
+<tr><td>Background Navy</td><td>`#07131d`</td><td>Page background</td></tr>
+<tr><td>Card Background</td><td>`#0d1b2a`</td><td>Card surfaces</td></tr>
+<tr><td>Text Primary</td><td>`#e2e8f0`</td><td>Body text</td></tr>
+<tr><td>Text Secondary</td><td>`#94a3b8`</td><td>Muted labels</td></tr>
+<tr><td>Success Green</td><td>`#06d6a0`</td><td>Sparkle color</td></tr>
+<tr><td>Alert Pink</td><td>`#f72585`</td><td>Sparkle color</td></tr>
+<tr><td>Gold</td><td>`#ffd166`</td><td>Sparkle color</td></tr>
+</tbody></table>
+
+
+<h3>Appendix D: API Response Format</h3>
+
+<p><strong>Success:</strong></p>
+<pre><code class="json">
+{
+    "reply": "Arijeet is a data engineer with 4+ years at Bosch and Microsoft..."
+}
+</code></pre>
+
+<p><strong>Error:</strong></p>
+<pre><code class="json">
+{
+    "error": "Server AI endpoints currently offline"
+}
+</code></pre>
+
+<hr>
+
+<p>*This document was generated as part of the Portfolio Web Application project. For the latest version of the source code, refer to the <code>src/</code> directory.*</p>
+
+</body>
+</html>
