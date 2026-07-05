@@ -1,0 +1,18 @@
+{
+  "name": "portfolio-optimized",
+  "version": "1.0.0",
+  "description": "Arijeet Ghosal - Portfolio Web Application. Enhanced with code deduplication and a zero-dependency token optimization build pipeline.",
+  "main": "scripts/build.js",
+  "scripts": {
+    "build": "python3 scripts/build.py"
+  },
+  "keywords": [
+    "portfolio",
+    "data-engineer",
+    "ai",
+    "minification",
+    "token-saving"
+  ],
+  "author": "Arijeet Ghosal",
+  "license": "ISC"
+}
