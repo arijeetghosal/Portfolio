@@ -1109,6 +1109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typewriterEl) {
         new Typewriter(typewriterEl, [
             'Data Engineer & AI Enthusiast',
+            'Germany Study & Career Consultant',
             'Computer Vision Researcher',
             'NLP & Generative AI Developer',
             'MSc AI @ BTU Cottbus-Senftenberg',

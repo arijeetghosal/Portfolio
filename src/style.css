@@ -3558,3 +3558,57 @@ select.form-control option {
         transform: scale(0) translate(var(--sx), var(--sy)) rotate(180deg);
     }
 }
+
+/* ── Hero Promo Badge for Counselling ──────────────────────────────── */
+.hero-promo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(139, 92, 246, 0.12);
+    border: 1px solid rgba(139, 92, 246, 0.35);
+    padding: 8px 18px;
+    border-radius: 50px;
+    color: #a78bfa;
+    font-size: 0.88rem;
+    text-decoration: none;
+    margin-bottom: 24px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    align-self: flex-start;
+    opacity: 0;
+    animation: fadeInUp 0.8s 0.2s forwards;
+}
+
+.hero-promo-badge:hover {
+    background: rgba(139, 92, 246, 0.22);
+    border-color: rgba(139, 92, 246, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.25);
+    color: #fff;
+}
+
+.hero-promo-badge span.pulse-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #8b5cf6;
+    border-radius: 50%;
+    animation: pulsePurple 2s infinite;
+}
+
+@keyframes pulsePurple {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7);
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 8px rgba(139, 92, 246, 0);
+    }
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(139, 92, 246, 0);
+    }
+}
+

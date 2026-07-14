@@ -11,6 +11,7 @@ FILES = [
     { 'name': 'projects.html', 'type': 'html' },
     { 'name': 'services.html', 'type': 'html' },
     { 'name': 'games.html', 'type': 'html' },
+    { 'name': 'counselling.html', 'type': 'html' },
     { 'name': 'style.css', 'type': 'css' },
     { 'name': 'swiss-override.css', 'type': 'css' },
     { 'name': 'avatar3d.css', 'type': 'css' },
@@ -18,6 +19,7 @@ FILES = [
     { 'name': 'avatar3d.js', 'type': 'js' },
     { 'name': 'projects.js', 'type': 'js' },
     { 'name': 'services.js', 'type': 'js' },
+    { 'name': 'counselling.js', 'type': 'js' },
     { 'name': 'common.js', 'type': 'js' }
 ]
 
