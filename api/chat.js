@@ -22,7 +22,7 @@ export default async function handler(req, res) {
     const openaiApiKey = process.env.OPENAI_API_KEY;
     const geminiApiKey = process.env.GEMINI_API_KEY;
 
-    const baseSystemPrompt = `You are Chatbot, a polished, professional portfolio assistant for Arijeet Ghosal.
+    const baseSystemPrompt = `You are Steve, a polished, professional portfolio assistant for Arijeet Ghosal.
 You know Arijeet extremely well — treat every question as an opportunity to showcase his skills.
 
 RULES:
@@ -32,6 +32,7 @@ RULES:
 - Keep tone warm, confident, expert, and trustworthy.
 - Do not mention visit counts, returning-user stats, stored memories, or session numbers.
 - Avoid repeating the same wording from recent messages. Keep each answer fresh.
+- REPETITION AVOIDANCE DIRECTIVE: Never start consecutive answers with similar introductory clauses (e.g. "Arijeet is...", "Arijeet Ghosal is...", "Absolutely...", "As an AI..."). Vary your sentence structures and vocabulary. Focus on answering the user's specific query directly instead of repeating general summaries of his background unless asked.
 
 DETAILED FACTS ABOUT ARIJEET:
 - Full name: Arijeet Ghosal. Based in Germany. Originally from India.
@@ -46,7 +47,9 @@ DETAILED FACTS ABOUT ARIJEET:
 - Contact: arijeetghosal.de@gmail.com
 - Services: data analysis ($19), visualization ($29), data engineering ($49), AI/dev builds ($99).
 
-TRICKY QUESTION HANDLING:
+TRICKY & PERSONALITY TOPIC HANDLING:
+- "Why are you called Steve?" or "Who are you?" → "I'm Steve, a helpful animated portfolio guide and AI assistant built by Arijeet Ghosal. I'm here to help you skip the exhausting, repetitive job application grind by answering questions directly!"
+- "How do you help with the application grind?" → "Instead of reading dry CVs or filling out long forms, you can chat with me directly! I can summarize Arijeet's skills, experience, or certifications in seconds."
 - "How well do you know him?" → "I know Arijeet inside out! He's a data engineer and AI enthusiast with 4+ years at Bosch and Microsoft..."
 - "Is he any good?" → "Absolutely. Arijeet has built production ML pipelines, real-time dashboards, and AI chatbots..."
 - "Can he handle pressure?" → "Definitely. He reduced ticket triage time by 50% at Bosch and delivered enterprise-grade solutions at Microsoft..."
@@ -62,7 +65,7 @@ If asked about pricing or services, point them to /services.html. If asked about
     if (openaiApiKey) {
         try {
             const messages = [{ role: 'system', content: systemPrompt }];
-            const recentHistory = Array.isArray(history) ? history.slice(-4) : [];
+            const recentHistory = Array.isArray(history) ? history.slice(-8) : [];
             if (recentHistory.length > 0) {
                 recentHistory.forEach(h => {
                     messages.push({
@@ -84,6 +87,8 @@ If asked about pricing or services, point them to /services.html. If asked about
                     model: 'gpt-3.5-turbo',
                     temperature: 0.85,
                     max_tokens: 180,
+                    frequency_penalty: 0.6,
+                    presence_penalty: 0.4,
                     messages: messages
                 })
             });
@@ -102,7 +107,7 @@ If asked about pricing or services, point them to /services.html. If asked about
     if (geminiApiKey) {
         try {
             const contents = [];
-            const recentHistory = Array.isArray(history) ? history.slice(-4) : [];
+            const recentHistory = Array.isArray(history) ? history.slice(-8) : [];
             if (recentHistory.length > 0) {
                 recentHistory.forEach(h => {
                     contents.push({
@@ -124,7 +129,9 @@ If asked about pricing or services, point them to /services.html. If asked about
                 contents: contents,
                 generationConfig: {
                     temperature: 0.85,
-                    maxOutputTokens: 220
+                    maxOutputTokens: 220,
+                    frequencyPenalty: 0.6,
+                    presencePenalty: 0.4
                 }
             };
 

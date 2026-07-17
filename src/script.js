@@ -721,7 +721,7 @@ class Chatbot {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     message: text,
-                    history: this.conversationHistory.slice(-4),
+                    history: this.conversationHistory.slice(-8),
                     context: this.buildContextPrompt(),
                     webSearch: needsWeb
                 })
@@ -1039,11 +1039,20 @@ class Chatbot {
             return this.pickFresh(jokes);
         }
 
+        // Steve / Application Grind
+        if (clean.includes('steve') || clean.includes('grind') || clean.includes('exhaust') || clean.includes('repetitive') || clean.includes('application')) {
+            return this.pickFresh([
+                "I'm Steve, built by Arijeet to help you skip the exhausting, repetitive job application grind! Ask me anything about his skills or background instead of reading a long CV.",
+                "Why spend hours doing repetitive application reviews? I can give you a clear, honest overview of Arijeet's data engineering and AI expertise in seconds.",
+                "Skip the application grind! Ask me about Arijeet's experience at Bosch and Microsoft, or configure a project request on the Services page."
+            ]);
+        }
+
         // Sentient
         if (clean.includes('alive') || clean.includes('sentient') || clean.includes('real') || clean.includes('human')) {
             return this.pickFresh([
-                "I am not sentient, but I can still be useful, dramatic, and slightly overconfident inside this chat window.",
-                "Real human? No. Helpful animated portfolio guide? That is the job description.",
+                "I am not sentient, but I can still be useful, dramatic, and help you bypass the repetitive application grind.",
+                "Real human? No. I am Steve, here to help you navigate Arijeet's portfolio and skip the repetitive application grind.",
                 "I am software with a voice and a face, which is almost cyberpunk if you do not inspect the source code too closely."
             ]);
         }
